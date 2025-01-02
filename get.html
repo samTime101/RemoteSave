@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>FETCH latest image from server</h2>
+  <p id="p">Initial version Jan2,2025 3rd commit</p>
+  <button onclick="updateImage()">FETCH</button>
+  <p>copyright samip regmi</p>
+</body>
+<script>
+  var image = new Image();
+  async function updateImage() {
+    document.querySelector('button').innerText = 'FETCHING';
+    const token = '';
+    const data = await fetch('', {
+      method: "GET",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    var response = await data.text();
+    console.log(response)
+    image.src = response
+    const existingImage = document.getElementById('dynamic-image');
+    if (existingImage) {
+      if (existingImage.src !== response) {
+        existingImage.src = response;
+      }
+    } else {
+      image.id = 'dynamic-image';
+      image.src = response;
+      document.body.appendChild(image);
+    }
+
+    console.log(response);
+    document.querySelector('button').innerText = 'FETCH';
+
+  }
+
+</script>
+
+</html>
