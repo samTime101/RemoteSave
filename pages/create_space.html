@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-25">
+              <label for="spacename">SPACE NAME</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="spacename" name="spacename" placeholder="spacename">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="password">PASSWORD</label>
+            </div>
+            <div class="col-75">
+              <input type="password" id="password" name="password" placeholder="password">
+            </div>
+          </div>
+          <div class="row">
+              <button onclick="create_space()" type="button">CREATE</button>
+              <p id="details"></p>
+          </div>
+    </div>
+
+</body>
+<script type="module" src="../js/create_space.js"></script>
+</html>

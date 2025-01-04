@@ -5,6 +5,9 @@
   pre,h2 , p,a{
       text-align: center;
   }
+  a{
+    cursor: pointer;
+  }
   input[type=password], input[type=text],input[type=file], textarea {
     width: 100%;
     padding: 12px;
@@ -36,8 +39,8 @@
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    width: 50%; /* Decrease the width */
-    margin: 0 auto; /* Center the form */
+    width: 50%; 
+    margin: 0 auto;
   }
   
   .col-25 {

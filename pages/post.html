@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 <pre>REFERENCE OF STYLING OF THIS PAGE: https://www.w3schools.com/css/tryit.asp?filename=trycss_form_responsive</pre>
@@ -9,10 +9,10 @@
 <div class="container">
   <div class="row">
     <div class="col-25">
-      <label for="filename">FILE NAME</label>
+      <label for="filename">SPACE NAME</label>
     </div>
     <div class="col-75">
-      <input type="text" id="filename" name="filename" placeholder="filename.extension">
+      <input type="text" id="space_name" name="filename" placeholder="filename.extension">
     </div>
   </div>
   <div class="row">
@@ -23,25 +23,10 @@
       <input type="password" id="password" name="password" placeholder="password">
     </div>
   </div>
-  <select name="" id="selector">
-      <option value="0" selected="selected">TEXT</option>
-      <option value="1">IMAGE</option>
-    </select>
-    <!-- IF TEXT IS SELECTED  -->
-    <div id="content-section" class="row">
-      <div class="col-25">
-          <label for="text_content">CONTENT</label>
-      </div>
-      <div class="col-75">
-          <textarea id="text_content" name="text_content" placeholder="content of the file" style="height:200px"></textarea>
-      </div>
-  </div>
-  
-<!-- IF IMAGE IS SELECTED -->
   <input type="file" id="image_content" accept="image/*" style="display: none;">
   <br>
   <div class="row">
-    <button  type="button" id="button">Submit</button>
+    <button  type="button" id="button" onclick="post_data()">CREATE SPACE</button>
   </div>
 </div>
 <hr>
@@ -49,5 +34,5 @@
 <p>SHARE VER @samip regmi -Initial Commit Jan 1 2025 / Current Vsersion -4TC</p>
 </div>
 </body>
-<script src="./js/post.js"></script>
+<script src="../js/post.js"></script>
 </html>

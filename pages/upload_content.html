@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<pre>REFERENCE OF STYLING OF THIS PAGE: https://www.w3schools.com/css/tryit.asp?filename=trycss_form_responsive</pre>
+ <!-- <h2>SHARE VER - CURRENT PAGE POST<br><a href="get.html">GO TO GET</a></h2>  -->
+  <p>EDITING CONTENTS OF PRE EXISTING FILE WILL BE AVAILABLE SOON :)</p>
+<div class="container">
+    <div class="row">
+        <div class="col-25">
+          <label for="spacename">SPACE NAME</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="spacename" name="spacename" placeholder="spacename">
+        </div>
+      </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="filename">FILE NAME</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="filename" name="filename" placeholder="filename.extension">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="password">PASSWORD</label>
+    </div>
+    <div class="col-75">
+      <input type="password" id="password" name="password" placeholder="password">
+    </div>
+  </div>
+    <!-- IF TEXT IS SELECTED  -->
+    <div id="content-section" class="row">
+      <div class="col-25">
+          <label for="text_content">CONTENT</label>
+      </div>
+      <div class="col-75">
+          <textarea id="text_content" name="text_content" placeholder="content of the file" style="height:200px"></textarea>
+      </div>
+  </div>
+  
+  <div class="row">
+    <button  type="button" id="button" onclick="post_data()">Submit</button>
+  </div>
+</div>
+<hr>
+<div id="result">
+<p>SHARE VER @samip regmi -Initial Commit Jan 1 2025 / Current Vsersion -4TC</p>
+</div>
+</body>
+<script src="../js/upload_content.js"></script>
+</html>

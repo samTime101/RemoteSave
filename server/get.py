@@ -1,23 +1,33 @@
 from flask import Flask, request, Response
 import os
 import datetime
+import json
+
 app = Flask(__name__)
 headers = {"Content-Type": "text/plain"}
 
-@app.route('/get/<filename>', methods=['GET'])
-def fetch_data(filename):
-    password = request.args.get('password')
-    if not os.path.exists(f'./database/{filename}'):
-        return Response(f"File {filename} not found.\n", status=404)
-    with open(f"{filename}", 'r') as file:
-        read = file.read()
-        splitted_file = read.splitlines()
-        password_file = splitted_file[0].replace('Password:',"").strip()
-        content_file = splitted_file[1]
-        if password != password_file:
-            return Response('SERVER SIDE WARNING : INVALID PASSWORD !\n',status=200)
-        
-    return Response(f'SUCCESSFULLY AUTHENTICATED:{datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}<br>FILENAME: {filename}<br>CONTENT: {content_file}\n',status=200)
+# return the content of the file
+@app.route('/space/<spacename>/<filename>', methods=['GET'])
+def content(spacename,filename):
+    with open(f'./database/{spacename}/{filename}','r') as file:
+        content = file.read()
+        return Response(content,status=200,headers=headers)
+
+# yesle space ko name list garxa jaba user le see spaces ma janxa
+@app.route('/list', methods=['GET'])
+def list():
+    spaces = os.listdir('./database/')
+    return Response(json.dumps(spaces),status=200,mimetype='application/json')
+
+#yele space ko content list garxa ,aaile ko lagi no authentication paxi handle garxu aru  
+@app.route('/space/<spacename>', methods=['GET'])
+def space(spacename):
+    if os.path.exists(f'./database/{spacename}') and os.path.isdir(f'./database/{spacename}'):
+        spaces = os.listdir(f'./database/{spacename}')
+        return Response(json.dumps(spaces),status=200,mimetype='application/json')
+    else:
+        error_message = {'error': 'Space does not exist'}
+        return Response(json.dumps(error_message), status=404, mimetype='application/json')
 
 
 @app.route('/about', methods=['GET'])

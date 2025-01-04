@@ -6,25 +6,23 @@ async function readFile(){
 async function post_data() {
     // var address = 'http://127.0.0.1:5000';
     var address = ''
-    var space_name = document.querySelector('#space_name').value;
+    var spacename = document.querySelector('#spacename').value;
     var password = document.querySelector('#password').value;
+    var filename = document.querySelector('#filename').value;
+    var password = document.querySelector('#password').value;
+    var content = document.querySelector('#text_content').value;
     var result = document.querySelector("#result");
-
-    if (space_name && password ) {
-        var data = await fetch(`${address}/post`, {
+        var data = await fetch(`${address}/post/${spacename}/${password}/${filename}`, {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain",
                 "Authorization": `Bearer ${await readFile()}`
+
             },
-            body: `${space_name}->${password}`
+            body: `${content}`
         });
         var response = await data.text();
         console.log(response);
-        result.innerHTML = response;
-    } else {
-        result.innerHTML = ">>connecting....";
-    }
-    document.querySelector('#button').innerText = 'Submit'
-}
+        result.innerHTML = response
 
+}
