@@ -1,18 +1,12 @@
-async function readFile(){
-    const file_data = await fetch('../js/token.txt');
-    var token_data = await file_data.text()
-    return token_data
-  } 
-async function join(){
-    // var address= 'http://127.0.0.1:8080'
-    var address = ''
+// yo chai GET ko address , yaha join ma get request matrai xa 
+const address= 'http://127.0.0.1:8080'
 
+async function join(){
     var space_name = document.querySelector('#join_space').value
     var data = await fetch(`${address}/space/${space_name}`,{
         method:"GET",
         headers:{
             "Content-Type":"application/json",
-            "Authorization": `Bearer ${await readFile()}`
 
         }
     })
@@ -33,14 +27,11 @@ async function join(){
 
 async function redirect_(a){
     var targeted_file_name = a.innerText
-    // var address= 'http://127.0.0.1:8080'
-    var address = ''
     var space_name = document.querySelector('#join_space').value
     var data = await fetch(`${address}/space/${space_name}/${targeted_file_name}`,{
         method:"GET",
         headers:{
             "Content-Type":"application/json",
-            "Authorization": `Bearer ${await readFile()}`
 
         }
     })
@@ -52,6 +43,6 @@ if (newWindow) {
     newWindow.document.write(`<pre>${response_data}</pre>`);
     newWindow.document.close();
 } else {
-    console.error("Unable to open new window. Check your browser's popup blocker settings.");
+    console.error("ERROR IN POP Up");
 }
 }

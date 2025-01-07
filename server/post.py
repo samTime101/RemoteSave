@@ -1,9 +1,12 @@
 from flask import Flask, request, Response
 import os
 import datetime
+from flask_cors import CORS 
+
 app = Flask(__name__)
+CORS(app) 
 headers = {"Content-Type": "text/plain", "Accept": "Content-Type:text/plain"}
-    
+
 @app.route('/post/<spacename>/<password>/<filename>',methods=['POST'])
 def post_data(spacename,password,filename):
     content = request.data.decode()
@@ -28,8 +31,6 @@ def create_space(spacename, password):
         os.makedirs(f'./database/{spacename}')
         return Response(f'SUCCESSFULLY CREATED SPACE :{spacename}', status=200)
     return Response(f'SPACE ALREADY EXISTS {spacename}', status=400)
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

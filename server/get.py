@@ -2,8 +2,10 @@ from flask import Flask, request, Response
 import os
 import datetime
 import json
+from flask_cors import CORS  
 
 app = Flask(__name__)
+CORS(app)  
 headers = {"Content-Type": "text/plain"}
 
 # return the content of the file
@@ -34,5 +36,6 @@ def space(spacename):
 def about():
     about = 'MADE BY SAMIP REGMI FIRST COMMIT ON JAN 1 2025\nNAMASTE :) currently V-4TC\n'
     return Response(about,status=200)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

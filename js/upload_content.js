@@ -1,11 +1,6 @@
-async function readFile(){
-    const file_data = await fetch('../js/token.txt');
-    var token_data = await file_data.text()
-    return token_data
-  } 
+
+const address = 'http://127.0.0.1:5000';
 async function post_data() {
-    // var address = 'http://127.0.0.1:5000';
-    var address = ''
     var spacename = document.querySelector('#spacename').value;
     var password = document.querySelector('#password').value;
     var filename = document.querySelector('#filename').value;
@@ -16,7 +11,6 @@ async function post_data() {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain",
-                "Authorization": `Bearer ${await readFile()}`
 
             },
             body: `${content}`
