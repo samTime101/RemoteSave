@@ -1,22 +1,25 @@
 
 var space_name = ""
 const address= 'http://127.0.0.1:8080'
-async function fetch_data(){
-
-
-    var data = await fetch(`${address}/list`,{
-            method:"GET",
-            headers:{
-                    "Content-Type":"application/json",
-
+async function fetch_data() {
+    try {
+        var data = await fetch(`${address}/list`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
             }
-    })
-    var response = await data.json()
-    console.log(response)
-    response.forEach(item => {
-        document.querySelector('#list').innerHTML += `<br><li><a onclick="join(this)">${item}</a></li>`;
-    });
+        });
+        var response = await data.json();
+        console.log(response);
+
+        response.forEach(item => {
+            document.querySelector('#list').innerHTML += `<br><li><a onclick="join(this)">${item}</a></li>`;
+        });
+    } catch (error) {
+        document.querySelector('#list').innerHTML = 'ASK SAMIP TO TURN ON SERVER <br> THE SERVER IS CURRENTLY SWITCHED OFF'
+    }
 }
+
 async function join(b){
      space_name = b.innerText
     var data = await fetch(`${address}/space/${space_name}`,{

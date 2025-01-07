@@ -1,6 +1,7 @@
 
 const address = 'http://127.0.0.1:5000';
 async function post_data() {
+    try{
     var spacename = document.querySelector('#spacename').value;
     var password = document.querySelector('#password').value;
     var filename = document.querySelector('#filename').value;
@@ -18,5 +19,8 @@ async function post_data() {
         var response = await data.text();
         console.log(response);
         result.innerHTML = response
+    }catch(error){
+        result.innerHTML = `ASK SAMIP TO TURN ON SERVR <br> THE SERVER IS CURRENTLY SWITCHED OFF`
 
+    }
 }

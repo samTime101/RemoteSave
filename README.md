@@ -6,7 +6,7 @@ Author: Samip Regmi
 Initial Commit: Jan 1 2025
 ```
 > [!CAUTION]
-> Need to fix the redundant codes ASAP
+> Need to fix the redundant codes ASAP still ASAP , no i havent fixed the redundant codes
 ```
  ┣ 📂database
  ┃ ┣ 📂`<space1>`
@@ -15,11 +15,10 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Jan 4 Updates
-- Added spaces 
-- User can create their own spaces
-- Create multiple file and share 
-- Password authentication
+## Jan 15 Updates
+- Hosted on Vercel
+- Added gitignore
+- hosted locally on my pc
 # Previews of latest commit
 [Screencast from 01-04-2025 04:51:59 PM.webm](https://github.com/user-attachments/assets/89254e81-5269-4ec9-b151-009601041537)
 

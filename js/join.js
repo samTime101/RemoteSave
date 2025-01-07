@@ -2,6 +2,7 @@
 const address= 'http://127.0.0.1:8080'
 
 async function join(){
+    try{
     var space_name = document.querySelector('#join_space').value
     var data = await fetch(`${address}/space/${space_name}`,{
         method:"GET",
@@ -22,6 +23,10 @@ async function join(){
     }
     else{
      document.querySelector('#details').innerHTML = `ERROR : THE SPACE DOESNOT EXIST`
+    }}
+    catch(error){
+        document.querySelector('#details').innerHTML = `ASK SAMIP TO TURN ON SERVER <br> THE SERVER IS CURRENTLY SWITCHED OFF`
+
     }
 }
 
