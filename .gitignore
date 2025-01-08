@@ -1,3 +1,4 @@
 /server/passwords/
 /server/database/
-/server/credentials/
+/server/credentials/get.txt/
+/server/credentials/post.txt/
