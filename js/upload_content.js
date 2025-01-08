@@ -1,5 +1,14 @@
 
-const address = 'http://127.0.0.1:5000';
+import { post } from "../server/credentials/export.js";
+
+var address = ''
+
+document.addEventListener("DOMContentLoaded", async () => {    
+    address=  await post()
+});
+
+
+window.post_data = post_data;
 async function post_data() {
     try{
     var spacename = document.querySelector('#spacename').value;

@@ -1,6 +1,17 @@
 
+import { get } from "../server/credentials/export.js";
+var address;
 var space_name = ""
-const address= 'http://127.0.0.1:8080'
+
+window.join = join;
+window.redirect_ = redirect_;
+
+document.addEventListener("DOMContentLoaded", async () => {
+    
+    address=  await get()
+    await fetch_data();
+});
+
 async function fetch_data() {
     try {
         var data = await fetch(`${address}/list`, {

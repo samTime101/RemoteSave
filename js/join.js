@@ -1,6 +1,14 @@
 // yo chai GET ko address , yaha join ma get request matrai xa 
-const address= 'http://127.0.0.1:8080'
+import { get } from "../server/credentials/export.js";
 
+var address = ''
+
+document.addEventListener("DOMContentLoaded", async () => {    
+    address=  await get()
+});
+
+window.join = join;
+window.redirect_ = redirect_;
 async function join(){
     try{
     var space_name = document.querySelector('#join_space').value
