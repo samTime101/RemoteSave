@@ -1,14 +1,23 @@
 import { password_prompt } from './passprompt.js';
-
-var address_get = 'http://127.0.0.1:8080';
-var address_post = 'http://127.0.0.1:5000';
+import {get,post} from '../server/credentials/export.js'
+var address_get ;
+var address_post;
 var space_name;
 var targeted_file_name;
 
-if (sessionStorage.getItem("authenticated") !== "true") {
-    alert("Access denied. Please log in first.");
-    window.location.href = "admin_login.html"; 
-}
+document.addEventListener("DOMContentLoaded", async () => {
+  //suruma check garne ani matra aru content load garne
+    if (sessionStorage.getItem("authenticated") !== "true") {
+      alert("Access denied. Please log in first.");
+      window.location.href = "admin_login.html"; 
+  }
+      
+  address_get=  await get()
+  address_post = await post()
+  await fetch_data()
+});
+
+
 
 //yini haru chai global window variables hun
 window.join = join;
@@ -17,9 +26,6 @@ window.delete_space = delete_space;
 window.delete_file = delete_file;
 
 //document load huda sabai vanda suruma load hune func
-document.addEventListener("DOMContentLoaded", async () => {
-  await fetch_data();
-});
 
 async function fetch_data() {
   try {

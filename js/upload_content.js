@@ -39,7 +39,7 @@ async function post_data() {
           <use xlink:href="#check-circle-fill"/>
         </svg>
         <div>
-          An example success alert with an icon
+          Success
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>`
@@ -52,7 +52,7 @@ async function post_data() {
 <div class="alert alert-danger d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
   <div>
-    An example danger alert with an icon
+    Error Response from server
   </div>`
         }
     }catch(error){

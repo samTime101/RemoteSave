@@ -19,6 +19,8 @@ async function create_space(){
         },
     });
     var response = await data.text()
+    //check garna
+    console.log(response)
     if (data.status == 200){
         document.querySelector('#details').innerHTML = `      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -30,7 +32,7 @@ async function create_space(){
           <use xlink:href="#check-circle-fill"/>
         </svg>
         <div>
-          An example success alert with an icon
+          Success
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div> `
@@ -45,7 +47,7 @@ async function create_space(){
 <div class="alert alert-danger d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
   <div>
-    An example danger alert with an icon
+    Error Response from Server
   </div> `
     }
 }catch(error){
