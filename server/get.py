@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response 
 import os
 import datetime
 import json
@@ -37,5 +37,14 @@ def about():
     about = 'MADE BY SAMIP REGMI FIRST COMMIT ON JAN 1 2025\nNAMASTE :) currently V-4TC\n'
     return Response(about,status=200)
 
+@app.route('/login/<adminpass>', methods=['GET'])
+def login_checker(adminpass):
+    with open('./passwords/admin/pass.pass','r') as x:
+        y = x.read()
+        if y == adminpass:
+            return Response(status=200)
+        return Response(status=400)
+            
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8080,debug=True)

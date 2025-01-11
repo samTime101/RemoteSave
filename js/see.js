@@ -24,7 +24,7 @@ async function fetch_data() {
         console.log(response);
 
         response.forEach(item => {
-            document.querySelector('#list').innerHTML += `<br><li><a onclick="join(this)">${item}</a></li>`;
+            document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="join(this)">${item}</a>`;
         });
     } catch (error) {
         document.querySelector('#list').innerHTML = 'ASK SAMIP TO TURN ON SERVER <br> THE SERVER IS CURRENTLY SWITCHED OFF'
@@ -47,7 +47,7 @@ async function join(b){
     document.querySelector('#status').innerHTML = `CONNECTED TO ${space_name}`
     console.log(data.ok)
     response.forEach(item => {
-        document.querySelector('#details').innerHTML += `<br><li><a onclick="redirect_(this)">${item}</a></li>`;
+        document.querySelector('#details').innerHTML += `<a class="list-group-item list-group-item-action" onclick="redirect_(this)">${item}</a>`;
     });
     }
     else{

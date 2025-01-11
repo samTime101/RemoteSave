@@ -1,57 +1,3 @@
-# Remote Save
-Remote save , a simple application on web that simply exists currently on development
-```
-Project Name: SHARE VER
-Author: Samip Regmi
-Initial Commit: Jan 1 2025
-```
-> [!CAUTION]
-> Need to fix the redundant codes ASAP still ASAP , no i havent fixed the redundant codes
-```
- ┣ 📂database
- ┃ ┣ 📂`<space1>`
- ┃ ┃ ┣ 📜`<space1 file>`
- ┣ 📂passwords
- ┃ ┣ 📂`<space1>`
- ┃ ┃ ┣ 📜`<space1 password>`
-```
-## Jan 11 Updates
-- added Bootstrap
-- added Admin function
-- admin login validation
-- can remove space
-- can remove content of space
-
-## To run and preview
-> requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
-Linux: [https://pkg.cloudflare.com/index.html](https://pkg.cloudflare.com/index.html)
-```sh
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
-
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared jammy main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
-
-sudo apt-get update && sudo apt-get install cloudflared
-```
-Running now
-```sh
-python3 get.py
-python3 post.py
-cloudflared tunnel --url http://localhost:8080
-cloudflared tunnel --url http://localhost:5000
-```
-The ports and ip address shall be same on cloudfared tunnel as we have hardcoded on our server
-```py
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
-```
-```py
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
-```
-Pop Up Window function: [Edited By Me , Originally : luc@ltdinteractive.com](https://stackoverflow.com/questions/9554987/how-can-i-hide-the-password-entered-via-a-javascript-dialog-prompt#:~:text=There%20is%20currently%20no%20way,it%20hide%20the%20text%20input.)
-```js
 /*
 JavaScript Password Prompt by Luc (luc@ltdinteractive.com)
 Edited by samip regmi
@@ -67,7 +13,6 @@ password_prompt("Please enter your password:", "Submit", function(password) {
     alert("Your password is: " + password);
 });
 */
-//ADDITION , 
 function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     if (typeof label_message !== "string") label_message = "Password:";
     if (typeof button_message !== "string") button_message = "Submit";
@@ -106,7 +51,7 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     div.style.left = (window.innerWidth / 2 - width / 2) + "px";
     div.style.top = (window.innerHeight / 2 - height / 2) + "px";
 
-    //yo chai maile haleko - ADDITION 
+    //yo chai maile haleko
     div.addEventListener('dblclick',()=>{
         document.body.removeChild(div);
         window.removeEventListener("resize", resize, false);
@@ -123,7 +68,6 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     const input = document.createElement("input");
     input.id = "password_prompt_input";
     input.type = "password";
-    //ADDITION
     input.addEventListener("keypress", function (e) {
         if (e.key === 'Enter') submit();
     }, false);
@@ -135,11 +79,5 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     document.body.appendChild(div);
     window.addEventListener("resize", resize, false);
 }
-// ADDITION
+
 export { password_prompt };
-
-```
-# Previews from 2025-Jan-4 Not latest
-[Screencast from 01-04-2025 04:51:59 PM.webm](https://github.com/user-attachments/assets/89254e81-5269-4ec9-b151-009601041537)
-
-

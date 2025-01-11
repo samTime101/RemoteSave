@@ -26,7 +26,7 @@ async function join(){
     document.querySelector('#status').innerHTML = `CONNECTED TO ${space_name}`
     console.log(data.ok)
     response.forEach(item => {
-        document.querySelector('#details').innerHTML += `<br><li><a onclick="redirect_(this)">${item}</a></li>`;
+        document.querySelector('#details').innerHTML += `<a class="list-group-item list-group-item-action" onclick="redirect_(this)">${item}</a>`;
     });
     }
     else{
