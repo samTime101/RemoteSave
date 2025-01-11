@@ -6,7 +6,7 @@ Author: Samip Regmi
 Initial Commit: Jan 1 2025
 ```
 > [!CAUTION]
-> Need to fix the redundant codes ASAP still ASAP , no i havent fixed the redundant codes
+> To rename some bootstrap default bootstrap5 alert names
 ```
  ┣ 📂database
  ┃ ┣ 📂`<space1>`
@@ -139,7 +139,8 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
 export { password_prompt };
 
 ```
-# Previews from 2025-Jan-4 Not latest
-[Screencast from 01-04-2025 04:51:59 PM.webm](https://github.com/user-attachments/assets/89254e81-5269-4ec9-b151-009601041537)
+# Previews from 2025-Jan-11 latest
+[Screencast from 01-11-2025 05:21:52 PM.webm](https://github.com/user-attachments/assets/59e4499f-e567-472c-92f8-b3d0b3c83947)
+
 
 
