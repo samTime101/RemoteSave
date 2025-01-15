@@ -6,7 +6,7 @@ Author: Samip Regmi
 Initial Commit: Jan 1 2025
 ```
 > [!CAUTION]
-> To rename some bootstrap default bootstrap5 alert names
+> To fix create Space , currently shows query in browser tab 
 ```
  ┣ 📂database
  ┃ ┣ 📂`<space1>`
@@ -15,12 +15,12 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Jan 11 Updates
-- added Bootstrap
-- added Admin function
-- admin login validation
-- can remove space
-- can remove content of space
+## Jan 16 Updates
+- Client side hosted
+- Server side `app.py` also hosted
+- used path of folders using `os` rather than hardcoding
+- works on mobile too
+- No CORS errors
 
 ## To run and preview
 > requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
@@ -139,8 +139,6 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
 export { password_prompt };
 
 ```
-# Previews from 2025-Jan-11 latest
-[Screencast from 01-11-2025 05:21:52 PM.webm](https://github.com/user-attachments/assets/59e4499f-e567-472c-92f8-b3d0b3c83947)
 
 
 
