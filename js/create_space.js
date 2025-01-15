@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 window.create_space = create_space;
 
-async function create_space(){
+async function create_space(event){
+  event.preventDefault();
     try{
     var spacename = document.querySelector('#spacename').value
     var password = document.querySelector('#password').value

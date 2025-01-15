@@ -6,7 +6,7 @@ Author: Samip Regmi
 Initial Commit: Jan 1 2025
 ```
 > [!CAUTION]
-> To fix create Space , currently shows query in browser tab 
+> To fix create Space , currently shows query in browser tab -> DONE : Fixed Jan 16
 ```
  ┣ 📂database
  ┃ ┣ 📂`<space1>`
