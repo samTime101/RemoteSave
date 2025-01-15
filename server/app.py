@@ -47,11 +47,15 @@ def about():
 
 @app.route('/login/<adminpass>', methods=['GET'])
 def login_checker(adminpass):
-    with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
-        y = x.read()
-        if y == adminpass:
-            return Response(status=200)
-        return Response(status=400)
+    try:
+        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
+            y = x.read().strip()
+            if y == adminpass:
+                return Response("True", status=200)
+            else:
+                return Response("False", status=400)
+    except FileNotFoundError:
+        return Response("Password file not found", status=404)
 
 # content write garda
 @app.route('/post/<spacename>/<password>/<filename>', methods=['POST'])
@@ -112,4 +116,4 @@ def remove_space_data(spacename, adminpass):
     return Response("invalid request", status=400)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000 , debug=True)
