@@ -8,29 +8,34 @@ app = Flask(__name__)
 CORS(app)  
 headers = {"Content-Type": "text/plain"}
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_DIR = os.path.join(BASE_DIR, 'database')
+PASSWORDS_DIR = os.path.join(BASE_DIR, 'passwords')
+
 # return the content of the file
 @app.route('/space/<spacename>/<filename>', methods=['GET'])
 def content(spacename,filename):
-    with open(f'./database/{spacename}/{filename}','r') as file:
+    file_path = os.path.join(DATABASE_DIR, spacename, filename)
+    with open(file_path, 'r') as file:
         content = file.read()
         return Response(content,status=200,headers=headers)
 
 # yesle space ko name list garxa jaba user le see spaces ma janxa
 @app.route('/list', methods=['GET'])
 def list():
-    spaces = os.listdir('./database/')
+    spaces = os.listdir(DATABASE_DIR)
     return Response(json.dumps(spaces),status=200,mimetype='application/json')
 
-#yele space ko content list garxa ,aaile ko lagi no authentication paxi handle garxu aru  
+# yele space ko content list garxa ,aaile ko lagi no authentication paxi handle garxu aru  
 @app.route('/space/<spacename>', methods=['GET'])
 def space(spacename):
-    if os.path.exists(f'./database/{spacename}') and os.path.isdir(f'./database/{spacename}'):
-        spaces = os.listdir(f'./database/{spacename}')
+    space_path = os.path.join(DATABASE_DIR, spacename)
+    if os.path.exists(space_path) and os.path.isdir(space_path):
+        spaces = os.listdir(space_path)
         return Response(json.dumps(spaces),status=200,mimetype='application/json')
     else:
         error_message = {'error': 'Space does not exist'}
         return Response(json.dumps(error_message), status=404, mimetype='application/json')
-
 
 @app.route('/about', methods=['GET'])
 def about():
@@ -39,12 +44,12 @@ def about():
 
 @app.route('/login/<adminpass>', methods=['GET'])
 def login_checker(adminpass):
-    with open('./passwords/admin/pass.pass','r') as x:
+    admin_pass_path = os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass')
+    with open(admin_pass_path, 'r') as x:
         y = x.read()
         if y == adminpass:
             return Response(status=200)
         return Response(status=400)
-            
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080,debug=True)
