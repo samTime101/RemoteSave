@@ -61,6 +61,8 @@ def login_checker(adminpass):
 @app.route('/post/<spacename>/<password>/<filename>', methods=['POST'])
 def post_data(spacename, password, filename):
     content = request.data.decode()
+    spacename = spacename.strip()
+    filename = filename.strip()
     password_path = os.path.join(PASSWORDS_DIR, spacename, 'pass.pass')
     if os.path.exists(password_path):
         with open(password_path, 'r') as x:
@@ -78,6 +80,7 @@ def post_data(spacename, password, filename):
 # space banauda
 @app.route('/post/<spacename>/<password>', methods=['POST'])
 def create_space(spacename, password):
+    spacename = spacename.strip()
     space_path = os.path.join(DATABASE_DIR, spacename)
     password_path = os.path.join(PASSWORDS_DIR, spacename)
     if not os.path.exists(space_path):
