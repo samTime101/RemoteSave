@@ -1,5 +1,10 @@
 # Remote Save
 Remote save , a simple application on web that simply exists currently on development
+
+## Preview
+Vanilla JS : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
+
+React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
 ```
 Project Name: SHARE VER
 Author: Samip Regmi
@@ -138,6 +143,5 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
 export { password_prompt };
 
 ```
-
 
 

@@ -1,5 +1,6 @@
-/server/passwords/
-/server/database/
+/server/
+/js/
+/pages/
 # Dependencies
 node_modules/
 
