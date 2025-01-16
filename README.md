@@ -1,144 +1,70 @@
-# Remote Save
-Remote save , a simple application on web that simply exists currently on development
-```
-Project Name: SHARE VER
-Author: Samip Regmi
-Initial Commit: Jan 1 2025
-```
-> [!CAUTION]
-> To use React , tailwind on Front end  and Node on Backend
-```
- ┣ 📂database
- ┃ ┣ 📂`<space1>`
- ┃ ┃ ┣ 📜`<space1 file>`
- ┣ 📂passwords
- ┃ ┣ 📂`<space1>`
- ┃ ┃ ┣ 📜`<space1 password>`
-```
-## Jan 16 Updates
-- Client side hosted
-- Server side `app.py` also hosted
-- used path of folders using `os` rather than hardcoding
-- works on mobile too
-- No CORS errors
+# Getting Started with Create React App
 
-## To run and preview
-> requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
-Linux: [https://pkg.cloudflare.com/index.html](https://pkg.cloudflare.com/index.html)
-```sh
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared jammy main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+## Available Scripts
 
-sudo apt-get update && sudo apt-get install cloudflared
-```
-Running now
-```sh
-python3 get.py
-python3 post.py
-cloudflared tunnel --url http://localhost:8080
-cloudflared tunnel --url http://localhost:5000
-```
-The ports and ip address shall be same on cloudfared tunnel as we have hardcoded on our server
-```py
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+In the project directory, you can run:
 
-```
-```py
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
-```
-Pop Up Window function: [Edited By Me , Originally : luc@ltdinteractive.com](https://stackoverflow.com/questions/9554987/how-can-i-hide-the-password-entered-via-a-javascript-dialog-prompt#:~:text=There%20is%20currently%20no%20way,it%20hide%20the%20text%20input.)
-```js
-/*
-JavaScript Password Prompt by Luc (luc@ltdinteractive.com)
-Edited by samip regmi
-Originaly posted to http://stackoverflow.com/questions/9554987/how-can-i-hide-the-password-entered-via-a-javascript-dialog-prompt
-This code is Public Domain :)
+### `yarn start`
 
-Syntax:
-password_prompt(label_message, button_message, callback);
-password_prompt(label_message, button_message, width, height, callback);
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Example usage:
-password_prompt("Please enter your password:", "Submit", function(password) {
-    alert("Your password is: " + password);
-});
-*/
-//ADDITION , 
-function password_prompt(label_message, button_message, arg3, arg4, arg5) {
-    if (typeof label_message !== "string") label_message = "Password:";
-    if (typeof button_message !== "string") button_message = "Submit";
-    let width, height, callback;
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-    if (typeof arg3 === "function") {
-        callback = arg3;
-    } else if (typeof arg3 === "number" && typeof arg4 === "number" && typeof arg5 === "function") {
-        width = arg3;
-        height = arg4;
-        callback = arg5;
-    }
-    if (typeof width !== "number") width = 300;
-    if (typeof height !== "number") height = 150;
-    if (typeof callback !== "function") callback = function () {};
+### `yarn test`
 
-    const submit = function () {
-        callback(input.value);
-        document.body.removeChild(div);
-        window.removeEventListener("resize", resize, false);
-    };
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-    const resize = function () {
-        div.style.left = (window.innerWidth / 2 - width / 2) + "px";
-        div.style.top = (window.innerHeight / 2 - height / 2) + "px";
-    };
-    const div = document.createElement("div");
-    div.id = "password_prompt";
-    div.style.background = "white";
-    div.style.color = "black";
-    div.style.border = "1px solid black";
-    div.style.width = width + "px";
-    div.style.height = height + "px";
-    div.style.padding = "16px";
-    div.style.position = "fixed";
-    div.style.left = (window.innerWidth / 2 - width / 2) + "px";
-    div.style.top = (window.innerHeight / 2 - height / 2) + "px";
+### `yarn build`
 
-    //yo chai maile haleko - ADDITION 
-    div.addEventListener('dblclick',()=>{
-        document.body.removeChild(div);
-        window.removeEventListener("resize", resize, false);
-    })
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-    const label = document.createElement("label");
-    label.id = "password_prompt_label";
-    label.innerHTML = label_message;
-    label.for = "password_prompt_input";
-    div.appendChild(label);
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-    div.appendChild(document.createElement("br"));
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-    const input = document.createElement("input");
-    input.id = "password_prompt_input";
-    input.type = "password";
-    //ADDITION
-    input.addEventListener("keypress", function (e) {
-        if (e.key === 'Enter') submit();
-    }, false);
-    div.appendChild(input);
+### `yarn eject`
 
-    div.appendChild(document.createElement("br"));
-    div.appendChild(document.createElement("br"));
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-    document.body.appendChild(div);
-    window.addEventListener("resize", resize, false);
-}
-// ADDITION
-export { password_prompt };
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## Learn More
 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
