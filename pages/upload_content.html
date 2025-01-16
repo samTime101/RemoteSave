@@ -12,19 +12,19 @@
 <div class="container w-50 mt-5">
   <div class="mb-3">
     <label for="spacename" class="form-label">Space Name</label>
-    <input type="text" class="form-control" id="spacename" placeholder="eg: general">
+    <input type="text" class="form-control" id="spacename" placeholder="eg: general" required>
   </div>
   <div class="mb-3">
     <label for="filename" class="form-label">Filename</label>
-    <input type="text" class="form-control" id="filename" placeholder="eg: announcement.txt" name="filename">
+    <input type="text" class="form-control" id="filename" placeholder="eg: announcement.txt" name="filename" required>
   </div>
   <div class="mb-3">
     <label for="pass" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="pass">
+    <input type="password" class="form-control" id="password" name="pass" required>
   </div>
   <div class="mb-3">
     <label for="content" class="form-label">Content</label>
-    <textarea class="form-control" id="text_content" rows="3"></textarea>
+    <textarea class="form-control" id="text_content" rows="3" required></textarea>
   </div>
   <div class="col-auto">
     <button type="button"  id="button" class="btn btn-primary mb-3" onclick="post_data()">Upload</button>
