@@ -8,7 +8,7 @@ function See() {
   const [spaceName, setSpaceName] = useState("");
   
   //suruma call garne
-  useEffect(() => {fetchData();}, );
+  useEffect(() => {fetchData();},[] );
   
   async function fetchData() {
     try {
