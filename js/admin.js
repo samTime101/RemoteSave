@@ -41,7 +41,7 @@ async function fetch_data() {
     response.forEach((item) => {
       document.querySelector(
         "#list"
-      ).innerHTML += `<br><li><a onclick="join(this)">${item}</a><button onclick="delete_space('${item}')">X</button></li>`;
+      ).innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"><a onclick="join(this)">${item}</a><button onclick="delete_space('${item}')" class="btn btn-danger btn-sm">X</button></li>`;
     });
   } catch (error) {
     document.querySelector("#list").innerHTML =
@@ -66,7 +66,7 @@ async function join(b) {
     response.forEach((item) => {
       document.querySelector(
         "#details"
-      ).innerHTML += `<br><li><a onclick="redirect_(this)">${item}</a><button onclick="delete_file('${space_name}','${item}')">X</button></li>`;
+      ).innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"><a onclick="redirect_(this)">${item}</a><button onclick="delete_file('${space_name}','${item}')" class="btn btn-danger btn-sm">X</button></li>`;
     });
   } else {
     document.querySelector(
@@ -110,6 +110,8 @@ function delete_file(space_name,targeted_file_name){
   console.log(response)    
   if(data.status==200){
     alert("success")
+    location.reload()
+
   }else{
     alert("invalid")
   }
@@ -127,6 +129,7 @@ async function delete_space(space_name){
     console.log(response)
     if(data.status==200){
       alert("success")
+      location.reload()
     }else{
       alert("invalid")
     }
