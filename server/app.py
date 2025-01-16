@@ -111,7 +111,7 @@ def remove_space_data(spacename, adminpass):
     password_path = os.path.join(PASSWORDS_DIR, spacename)
     if os.path.exists(space_path):
         with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
-            y = x.read()
+            y = x.read().strip()
             if y == adminpass:
                 shutil.rmtree(space_path)
                 shutil.rmtree(password_path)
