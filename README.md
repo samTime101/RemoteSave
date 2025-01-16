@@ -1,12 +1,14 @@
 # Remote Save
 Remote save , a simple application on web that simply exists currently on development
+
+## Preview
+Vanilla JS : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
+React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
 ```
 Project Name: SHARE VER
 Author: Samip Regmi
 Initial Commit: Jan 1 2025
 ```
-> [!CAUTION]
-> To use React , tailwind on Front end  and Node on Backend
 ```
  ┣ 📂database
  ┃ ┣ 📂`<space1>`
@@ -21,6 +23,7 @@ Initial Commit: Jan 1 2025
 - used path of folders using `os` rather than hardcoding
 - works on mobile too
 - No CORS errors
+- Used `react` in front end branch `react` and vanilla on `main`
 
 ## To run and preview
 > requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
@@ -139,6 +142,5 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
 export { password_prompt };
 
 ```
-
 
 
