@@ -23,3 +23,7 @@ build/
 .DS_Store
 Thumbs.db
 
+.yarn/
+yarn.lock
+reportWebVitals.js
+setupTests.js
