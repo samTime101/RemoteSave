@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
 function Join() {
-  const [address] = useState("https://samip.pythonanywhere.com");
+  const address = "https://samip.pythonanywhere.com"
   const inputRef = useRef();
   const [status, setStatus] = useState("");  
   const [details, setDetails] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 function AdminLogin() {
-  const [address] = useState("https://samip.pythonanywhere.com");
+  const address = "https://samip.pythonanywhere.com"
   const password = useRef();
   const navigate = useNavigate();
   async function login() {

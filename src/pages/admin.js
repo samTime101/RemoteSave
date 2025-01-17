@@ -98,9 +98,6 @@ const AdminPage = () => {
       const response = await data.text();
       if (data.status === 200) {
         alert("File deleted successfully");
-        // setStatus("")
-        // setDetails([])
-        // fetchData()
         joinSpace(spaceName);
       } else {
         alert("Invalid admin password or error deleting file");
@@ -123,7 +120,6 @@ const AdminPage = () => {
         setStatus("")
         setDetails([])
         fetchData()
-        // joinSpace(spaceName);
       } else {
         alert("Invalid admin password or error deleting space");
       }

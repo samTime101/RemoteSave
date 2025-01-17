@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
 function CreateSpace() {
-  const [address] = useState("https://samip.pythonanywhere.com");
+  const address = "https://samip.pythonanywhere.com"
   const spacename = useRef();
   const password = useRef();
   const [details, setDetails] = useState([]);

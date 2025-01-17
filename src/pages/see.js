@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function See() {
-  const [address] = useState("https://samip.pythonanywhere.com");
+  const address = "https://samip.pythonanywhere.com"
   const [list, setList] = useState([]);
   const [status, setStatus] = useState("");
   const [details, setDetails] = useState([]);

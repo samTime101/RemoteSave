@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 
 function UploadContent() {
-      const [address] = useState("https://samip.pythonanywhere.com");
+      const address = "https://samip.pythonanywhere.com"
       const spacename = useRef();
       const password = useRef();
       const filename = useRef();
