@@ -24,6 +24,5 @@ build/
 Thumbs.db
 
 .yarn/
-yarn.lock
 reportWebVitals.js
 setupTests.js
