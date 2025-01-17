@@ -19,6 +19,9 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
+### Server Hosted In Flask Python
+> server codes in `main` branch under server
+
 ## Jan 16 Updates
 - Client side hosted
 - Server side `app.py` also hosted
