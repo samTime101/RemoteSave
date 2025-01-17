@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 import { password_prompt } from './passprompt'; 
 const AdminPage = () => {
   const navigate = useNavigate();
-  const [addressGet] = useState("https://samip.pythonanywhere.com");
-  const [addressPost] = useState("https://samip.pythonanywhere.com");
+  const addressGet = "https://samip.pythonanywhere.com";
+  const addressPost = "https://samip.pythonanywhere.com";  
   const [authenticated, setAuthenticated] = useState(false);
   const [spaces, setSpaces] = useState([]);
   const [spaceName, setSpaceName] = useState("");
@@ -92,10 +94,13 @@ const AdminPage = () => {
           method: "POST",
         }
       );
+      //file delete huda existing file refresh hunuparo
       const response = await data.text();
       if (data.status === 200) {
         alert("File deleted successfully");
-        // Optionally, refresh the details after deletion
+        // setStatus("")
+        // setDetails([])
+        // fetchData()
         joinSpace(spaceName);
       } else {
         alert("Invalid admin password or error deleting file");
@@ -111,10 +116,14 @@ const AdminPage = () => {
           method: "POST",
         }
       );
+      //space delete huda status ra details clear hunuparo ra reload is required
       const response = await data.text();
       if (data.status === 200) {
         alert("Space deleted successfully");
-        fetchData();
+        setStatus("")
+        setDetails([])
+        fetchData()
+        // joinSpace(spaceName);
       } else {
         alert("Invalid admin password or error deleting space");
       }
@@ -122,7 +131,7 @@ const AdminPage = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="w-50 container mt-5">
       <h2 className="text-center mb-4">Admin Page</h2>
       {authenticated && (
         <>
@@ -131,13 +140,12 @@ const AdminPage = () => {
             <ul className="list-group">
               {spaces.map((space) => (
                 <li key={space} className="list-group-item d-flex justify-content-between align-items-center">
-                  <a
-                    href="#"
+                  <Link
                     onClick={() => joinSpace(space)}
-                    className="text-decoration-none"
+                    className="text-decoration-none text-dark"
                   >
                     {space}
-                  </a>
+                  </Link>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => deleteSpace(space)}
@@ -149,18 +157,17 @@ const AdminPage = () => {
             </ul>
           </div>
           <div id="status" className="text-center mb-4">{status}</div>
-          <div>
+          <div className="mb-3">
             <h4>Details</h4>
             <ul className="list-group">
               {details.map((item) => (
                 <li key={item} className="list-group-item d-flex justify-content-between align-items-center">
-                  <a
-                    href="#"
+                  <Link
                     onClick={() => redirectToFile(item)}
-                    className="text-decoration-none"
+                    className="text-decoration-none text-dark"
                   >
                     {item}
-                  </a>
+                  </Link>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => deleteFile(spaceName, item)}
