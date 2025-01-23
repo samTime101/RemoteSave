@@ -64,18 +64,29 @@ def post_data(spacename, password, filename):
     spacename = spacename.strip()
     filename = filename.strip()
     password_path = os.path.join(PASSWORDS_DIR, spacename, 'pass.pass')
-    if os.path.exists(password_path):
-        with open(password_path, 'r') as x:
-            y = x.read().strip()
-            if password == y:
-                file_path = os.path.join(DATABASE_DIR, spacename, filename)
-                if os.path.exists(file_path):
-                    return Response("Invalid request: File already exists inside space\n", status=400)
-                with open(file_path, 'w') as a:
-                    formatted_content = f'{content}\n------\nBY SERVER\nADDED ON: {datetime.datetime.now().strftime("%c")}\n------'
-                    a.write(formatted_content)
-                    return Response('SUCCESS')
-    return Response('SERVER ERROR:INVALID ACCESS')
+    space_path = os.path.join(DATABASE_DIR,spacename)
+    file_path = os.path.join(space_path,filename)
+
+    if not os.path.exists(space_path):
+        return Response("Error: space does not exist\n", status=400)
+
+    if not os.path.exists(password_path):
+        return Response("Error: space does not exist\n", status=400)
+    
+    with open(password_path, 'r') as x:
+        stored_password = x.read().strip()
+        if password != stored_password:
+            return Response("wrong pass\n", status=400)
+    if os.path.exists(file_path):
+        return Response("file already exists\n", status=400)
+
+    with open(file_path, 'w') as a:
+        formatted_content = f'{content}\n------\nBY SERVER\nADDED ON: {datetime.datetime.now().strftime("%c")}\n------'
+        a.write(formatted_content)
+        return Response('SUCCESS', status=200)
+
+    return Response('SERVER ERROR: INVALID ACCESS', status=500)
+
 
 # space banauda
 @app.route('/post/<spacename>/<password>', methods=['POST'])
@@ -117,6 +128,37 @@ def remove_space_data(spacename, adminpass):
                 shutil.rmtree(password_path)
                 return Response("Successfully removed", status=200)
     return Response("invalid request", status=400)
+
+
+#edit garda
+@app.route('/edit/<spacename>/<password>/<filename>', methods=['POST'])
+def edit_data(spacename, password, filename):
+    new_content = request.data.decode()
+    spacename = spacename.strip()
+    filename = filename.strip()
+    password_path = os.path.join(PASSWORDS_DIR, spacename, 'pass.pass')
+    space_path = os.path.join(DATABASE_DIR,spacename)
+    file_path = os.path.join(space_path,filename)
+
+    if not os.path.exists(space_path):
+        return Response("Error: space does not exist\n", status=400)
+
+    if not os.path.exists(password_path):
+        return Response("Error: space does not exist\n", status=400)
+    
+    with open(password_path, 'r') as x:
+        stored_password = x.read().strip()
+        if password != stored_password:
+            return Response("wrong pass\n", status=400)
+    # previous file chai exist garekai hunuparxa natra not allowed
+    if os.path.exists(file_path):
+        with open(file_path, 'w') as a:
+            formatted_content = f'{new_content}\n------\nBY SERVER\nADDED ON: {datetime.datetime.now().strftime("%c")}\n------'
+            a.write(formatted_content)
+            return Response('SUCCESS', status=200)
+
+    return Response('SERVER ERROR: INVALID ACCESS', status=500)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000 , debug=True)
