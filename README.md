@@ -19,13 +19,8 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Jan 16 Updates
-- Client side hosted
-- Server side `app.py` also hosted
-- used path of folders using `os` rather than hardcoding
-- works on mobile too
-- No CORS errors
-- Used `react` in front end branch `react` and vanilla on `main`
+## Jan 23 Updates
+- edit functionality to admin
 
 ## To run and preview
 > requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
