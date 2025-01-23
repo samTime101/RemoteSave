@@ -1,10 +1,20 @@
 # Remote Save
 Remote save , a simple application on web that simply exists currently on development
 
-## Preview
-React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
+> [!WARNING]
+> Currently react is one update behind and doesnot have edit content functionality
 
+### Todo
+
+- [ ] add edit content functionality to React
+- [ ] add flow bite and remove bootstrap5
+- [ ] remove passprompt.js and use modal
+
+## Preview
+Latest is vanilla
 Vanilla JS : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
+
+React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
 
 ```
 Project Name: SHARE VER
@@ -20,7 +30,7 @@ Initial Commit: Jan 1 2025
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
 ## Jan 23 Updates
-- edit functionality to admin
+- edit functionality to admin for vanilla JS
 
 ## To run and preview
 > requires cloudfare to not have any CORS errors and to host , to try locally u can use your own ip address
@@ -67,7 +77,7 @@ password_prompt("Please enter your password:", "Submit", function(password) {
     alert("Your password is: " + password);
 });
 */
-//ADDITION , 
+//ADDITION ,
 function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     if (typeof label_message !== "string") label_message = "Password:";
     if (typeof button_message !== "string") button_message = "Submit";
@@ -106,7 +116,7 @@ function password_prompt(label_message, button_message, arg3, arg4, arg5) {
     div.style.left = (window.innerWidth / 2 - width / 2) + "px";
     div.style.top = (window.innerHeight / 2 - height / 2) + "px";
 
-    //yo chai maile haleko - ADDITION 
+    //yo chai maile haleko - ADDITION
     div.addEventListener('dblclick',()=>{
         document.body.removeChild(div);
         window.removeEventListener("resize", resize, false);
