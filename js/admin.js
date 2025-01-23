@@ -171,6 +171,8 @@ async function edit_file(space_name, targeted_file_name) {
 
   document.querySelector("#newSend").addEventListener("click",async () => {
     const message = document.querySelector("#message-text").value;
+    console.log(`${address_post}/edit/${spacename}/${password.value}/${filename}`);
+
      var data_new = await fetch(`${address_post}/edit/${spacename}/${password.value}/${filename}`, {
          method: "POST",
          headers: {

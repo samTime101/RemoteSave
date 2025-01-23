@@ -153,7 +153,7 @@ def edit_data(spacename, password, filename):
     # previous file chai exist garekai hunuparxa natra not allowed
     if os.path.exists(file_path):
         with open(file_path, 'w') as a:
-            formatted_content = f'{new_content}\n------\nBY SERVER\nADDED ON: {datetime.datetime.now().strftime("%c")}\n------'
+            formatted_content = f'{new_content}\n------\nBY SERVER\UPDATED ON: {datetime.datetime.now().strftime("%c")}\n------'
             a.write(formatted_content)
             return Response('SUCCESS', status=200)
 
