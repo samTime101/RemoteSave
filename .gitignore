@@ -1,3 +1,4 @@
 /server/passwords/
 /server/database/
 /node_modules/
+/build/
