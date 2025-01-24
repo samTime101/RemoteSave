@@ -7,7 +7,7 @@ Remote save , a simple application on web that simply exists currently on develo
 ### Todo
 - [ ] add flow bite and remove bootstrap5
 - [ ] remove passprompt.js and use modal
-- [x] add edit content functionality to RLatest is vanillaeact
+- [x] add edit content functionality to React
 ## Preview
 React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
 Vanilla JS : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
