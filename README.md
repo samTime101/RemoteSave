@@ -1,6 +1,9 @@
 # Remote Save
 Remote save , a simple application on web that simply exists currently on development
 
+> [!IMPORTANT]  
+> The server side code `app.py` in flask is being rewritten for integrating subspaces
+
 > [!NOTE]
 > Admin content edit functionality added to react
 
