@@ -6,11 +6,12 @@ var address = await get()
 var username = document.querySelector('#username').value
 var password = document.querySelector('#password').value
 
-var res = await fetch(`${address}/login/${password}`, {
-            method: "GET",
+var res = await fetch(`${address}/login`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
+            body:`${password}`
         });
     if (res.status == 200){
         alert("User validated")

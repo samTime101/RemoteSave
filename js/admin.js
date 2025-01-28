@@ -14,108 +14,103 @@ document.addEventListener("DOMContentLoaded", async () => {
       
   address_get=  await get()
   address_post = await post()
-  await fetch_data()
+  await fetch_data('space')
 });
 
 
 
 //yini haru chai global window variables hun
-window.join = join;
-window.redirect_ = redirect_;
+
 window.delete_space = delete_space;
 window.delete_file = delete_file;
 window.edit_file = edit_file;
 //document load huda sabai vanda suruma load hune func
 
-async function fetch_data() {
-  try {
-    var data = await fetch(`${address_get}/list`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    var response = await data.json();
-    console.log(response);
-
-    response.forEach((item) => {
-      document.querySelector(
-        "#list"
-      ).innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"><a onclick="join(this)">${item}</a><button onclick="delete_space('${item}')" class="btn btn-danger btn-sm">X</button></li>`;
-    });
-  } catch (error) {
-    document.querySelector("#list").innerHTML =
-      "ASK SAMIP TO TURN ON SERVER <br> THE SERVER IS CURRENTLY SWITCHED OFF";
-  }
-}
-
-async function join(b) {
-  space_name = b.innerText;
-  var data = await fetch(`${address_get}/space/${space_name}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  var response = await data.json();
-  document.querySelector("#details").innerHTML = "";
-  document.querySelector("#status").innerText = "";
-  if (data.ok) {
-    document.querySelector("#status").innerHTML = `CONNECTED TO ${space_name}`;
-    console.log(data.ok);
-    response.forEach((item) => {
-      document.querySelector(
-        "#details"
-      )
-      // .innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center"><a onclick="redirect_(this)">${item}</a><button onclick="delete_file('${space_name}','${item}')" class="btn btn-danger btn-sm">X</button></li>`;
-      .innerHTML += `<li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-    <a onclick="redirect_(this)">${item}</a>
-    <div>
-        <button onclick="edit_file('${space_name}','${item}')" class="btn btn-primary btn-sm me-2" data-toggle="modal" data-target="#warningModal">✏️</button>
-        <button onclick="delete_file('${space_name}','${item}')" class="btn btn-danger btn-sm">X</button>
-    </div>
-</li>`;
-    });
-  } else {
-    document.querySelector(
-      "#details"
-    ).innerHTML = `ERROR : THE SPACE DOESNOT EXIST`;
-  }
-}
-async function redirect_(a) {
-    targeted_file_name = a.innerText;
-  var data = await fetch(
-    `${address_get}/space/${space_name}/${targeted_file_name}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+window.fetch_data = fetch_data;
+window.back = back;
+window.preview_file = preview_file
+var current_path
+async function fetch_data(path) {
+    if (path == 'space') {
+        document.querySelector('#back').style.display = 'none';
+    } else {
+        document.querySelector('#back').style.display = 'block';
     }
-  );
 
-  var response_data = await data.text();
-//   console.log(response_data);
-console.log(`TEST: ${space_name} ${targeted_file_name}`)
+    var response = await fetch(`${address_get}/${path}`);
+    var data = await response.json();
+    current_path = path;
 
-  var newWindow = window.open("", "_blank");
-  if (newWindow) {
-    newWindow.document.open();
-    newWindow.document.write(`<pre>${response_data}</pre>`);
-    newWindow.document.close();
-  } else {
-    console.error("POP UP ERROR");
-  }
+    document.querySelector('#list').innerHTML = "";
+    document.querySelector('#status').innerHTML = `CURRENT PATH : ${path.toUpperCase()}`;
+    
+    if ("folder" in data) {
+        for (let item of data["folder"]) {
+            let newPath = `${path}/${item}`;
+            let itemResponse = await fetch(`${address_get}/${newPath}`);
+            let itemData = await itemResponse.json();
+
+            if ("folder" in itemData) {
+document.querySelector('#list').innerHTML += `
+    <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+        <a class="text-decoration-none flex-grow-1" onclick="fetch_data('${newPath}')">
+            📁 ${item}
+        </a>
+        <div>
+            <button onclick="delete_space('${newPath.split('/').slice(1).join('/')}')" class="btn btn-danger btn-sm">X</button>
+        </div>
+    </div>
+`;;
+            } else {
+              document.querySelector('#list').innerHTML += `
+    <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+        <a class="text-decoration-none flex-grow-1" onclick="preview_file('${newPath}')">
+            📄 ${item}
+        </a>
+        <div>
+            <button onclick="edit_file('${path.split('/').slice(1).join('/')}','${item}')" class="btn btn-primary btn-sm me-2" data-toggle="modal" data-target="#warningModal">✏️</button>
+            <button onclick="delete_file('${path.split('/').slice(1).join('/')}','${item}')" class="btn btn-danger btn-sm">X</button>
+        </div>
+    </div>
+`;
+            }
+        }
+    } else {
+        console.log("Unknown response format.");
+    }
 }
-//file delete garne request
 
+async function preview_file(path) {
+    var response = await fetch(`${address_get}/${path}`);
+    var data = await response.json(); 
+    // console.log(data)
+var newWindow = window.open('', '_blank');
+if (newWindow) {
+    newWindow.document.open();
+    newWindow.document.write(`<pre>${data['file']}</pre>`);
+    newWindow.document.close();
+} else {
+    console.error("POP UP ERROR");
+}
+}
+
+async function back(){
+    current_path = current_path.split('/').slice(0, -1).join('/');
+    // console.log(current_path.split('/').slice(0, -1))
+    await fetch_data(current_path)
+}
 async function delete_file(space_name,targeted_file_name){
+  // console.log(`${space_name} and ${targeted_file_name}`)
   password_prompt("Enter admin pass", "Submit", async function(pass) {
-    var data = await fetch(`${address_post}/remove_file/${pass}/${space_name}/${targeted_file_name}`,{
-      method: "POST"
+    var data = await fetch(`${address_post}/remove_file/${space_name}/${targeted_file_name}`,{
+      method: "POST",
+              headers: {
+                "Content-Type": "text/plain",
+            },
+            body: `${pass}`,
   })
   var response = await data.text();
-  console.log(response)    
+  // console.log(response)    
   if(data.status==200){
     alert("success")
     location.reload()
@@ -130,11 +125,15 @@ async function delete_file(space_name,targeted_file_name){
 async function delete_space(space_name){
   password_prompt("Enter admin pass", "Submit", async function(pass) {
 
-    var data = await fetch(`${address_post}/remove_space/${pass}/${space_name}`,{
-        method: "POST"
+    var data = await fetch(`${address_post}/remove_space/${space_name}`,{
+        method: "POST",
+        headers: {
+                "Content-Type": "text/plain",
+            },
+            body: `${pass}`,
     })
     var response = await data.text();
-    console.log(response)
+    // console.log(response)
     if(data.status==200){
       alert("success")
       location.reload()
@@ -164,21 +163,27 @@ async function edit_file(space_name, targeted_file_name) {
     }
   );
 
-  var response_data = await data_get.text();
-  new_content.value = response_data
+  var response_data = await data_get.json();
+  new_content.value = response_data['file']
+  // yo pathaune ho
   const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
   warningModal.show();
 
   document.querySelector("#newSend").addEventListener("click",async () => {
+       var content_to_be_sent = {
+        password: password.value.trim(),  
+        new_content: new_content.value.trim() 
+    };
+        console.log(content_to_be_sent)
     const message = document.querySelector("#message-text").value;
-    console.log(`${address_post}/edit/${spacename}/${password.value}/${filename}`);
+    // console.log(`${address_post}/edit/${spacename}/${password.value}/${filename}`);
 
-     var data_new = await fetch(`${address_post}/edit/${spacename}/${password.value}/${filename}`, {
+     var data_new = await fetch(`${address_post}/edit/${spacename}/${filename}`, {
          method: "POST",
          headers: {
-             "Content-Type": "text/plain"
+             "Content-Type": "application/json"
          },
-         body: `${new_content.value}`
+         body: JSON.stringify(content_to_be_sent)
      });
      var response_new = await data_new.text(); 
      alert(data_new.status)

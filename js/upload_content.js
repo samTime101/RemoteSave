@@ -17,11 +17,14 @@ async function post_data() {
     var password = document.querySelector('#password').value;
     var content = document.querySelector('#text_content').value;
     var details = document.querySelector("#details");
+    // alert(spacename)
+    // alert(filename)
+    
     if(spacename.includes(' ') || filename.includes(' ')){
       alert('dont put space invalid')
       return
     }
-        var data = await fetch(`${address}/post/${spacename}/${password}/${filename}`, {
+        var data = await fetch(`${address}/write/${spacename}/${password}/${filename}`, {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain",

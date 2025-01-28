@@ -2,19 +2,22 @@
 Remote save , a simple application on web that simply exists currently on development
 
 > [!IMPORTANT]  
-> The server side code `app.py` in flask is being rewritten for integrating subspaces
+> React code is way behind , will be working on react soon , current react code is `old` dont reference it
 
 > [!NOTE]
-> Admin content edit functionality added to react
+> `app.py` now supports subfolders !!!! was very hard
 
 ### Todo
+- [ ] take password in JSON rather than endpoint
 - [ ] add flow bite and remove bootstrap5
 - [ ] remove passprompt.js and use modal
+- [ ] port latest subfolder functionality to react
+- [x] added subfolder functionality 
 - [x] add edit content functionality to React
+- [x] added remove file and remove space functionality to admin
+- [x] added admin functions
 ## Preview
-React : [https://remote-save-git-react-samtime101s-projects.vercel.app](https://remote-save-git-react-samtime101s-projects.vercel.app)
-
-Vanilla JS : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
+Vanilla JS(latest) : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
 
 
 ```
@@ -30,13 +33,10 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Jan 24 Updates
-- Added edit functionality of admin to react
-
-### To run locally (react)
-- clone the repo
-- download required dependencies `yarn install` &` yarn build`
-- do `yarn start` and you are good to go 
+## Jan 28 Updates
+- added subfolder functionality
+- rewrote server side code
+- little modifications to UI
 
 ### To run locally (vanilla)
 - just clone and run it .... that's it

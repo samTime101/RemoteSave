@@ -1,144 +1,186 @@
-# duitai get.py ra post.py in one file
-from flask import Flask, request, Response
+# CODE BEING RE WRITTEN IN JAN 25,26,27
+# AUTHOR SAMIP REGMI
+# TODO : change the directly taken password from endpoint to JSON
+# SHIT
+
+from flask import Flask, request, Response, jsonify
 import os
-import datetime
 import json
 from flask_cors import CORS
+import datetime
 import shutil
 
 app = Flask(__name__)
 CORS(app)
 
-#relative directory ra aru le problem naaaos vaenra rakheko
+# ---- RELATIVE DIRECTORY ASSIGNMENT ----
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE_DIR = os.path.join(BASE_DIR, 'database')
 PASSWORDS_DIR = os.path.join(BASE_DIR, 'passwords')
+SPACES_DIR = os.path.join(DATABASE_DIR, 'space')
 
-headers = {"Content-Type": "text/plain", "Accept": "Content-Type:text/plain"}
-
-# return the content of the file
-@app.route('/space/<spacename>/<filename>', methods=['GET'])
-def content(spacename, filename):
-    with open(os.path.join(DATABASE_DIR, spacename, filename), 'r') as file:
-        content = file.read()
-        return Response(content, status=200, headers=headers)
-
-# yesle space ko name list garxa jaba user le see spaces ma janxa
-@app.route('/list', methods=['GET'])
-def list():
-    spaces = os.listdir(DATABASE_DIR)
-    return Response(json.dumps(spaces), status=200, mimetype='application/json')
-
-# yele space ko content list garxa ,aaile ko lagi no authentication paxi handle garxu aru
-@app.route('/space/<spacename>', methods=['GET'])
+# ---- PATH FUNCTION ----
+@app.route('/<path:spacename>', methods=['GET'])
 def space(spacename):
     space_path = os.path.join(DATABASE_DIR, spacename)
-    if os.path.exists(space_path) and os.path.isdir(space_path):
-        spaces = os.listdir(space_path)
-        return Response(json.dumps(spaces), status=200, mimetype='application/json')
-    else:
-        error_message = {'error': 'Space does not exist'}
-        return Response(json.dumps(error_message), status=404, mimetype='application/json')
+    if not os.path.exists(space_path):
+        return Response(json.dumps({"error": "Not Found" }), status=404, mimetype='application/json')
 
-@app.route('/about', methods=['GET'])
-def about():
-    about = 'MADE BY SAMIP REGMI FIRST COMMIT ON JAN 1 2025\nNAMASTE :) currently V-4TC\n'
-    return Response(about, status=200)
+    if os.path.isdir(space_path):
+        space_contents = os.listdir(space_path) 
+        return Response(json.dumps({"folder": space_contents}), status=200, mimetype='application/json')
+        # return Response(json.dumps(space_contents), status=200, mimetype='application/json')
 
-@app.route('/login/<adminpass>', methods=['GET'])
-def login_checker(adminpass):
+    if os.path.isfile(space_path):
+        with open(f"{space_path}","r") as file:
+            file_content = file.read()
+            # return Response(file_content, status=200, mimetype='text/plain')
+            return Response(json.dumps({"file" : file_content}), status=200, mimetype='text/plain')
+
+# ---- SPACE CREATE ----
+@app.route('/create/<spacename>', methods=['POST'])
+def create_space(spacename):
+    password = request.data.decode()
+    spacename = spacename.strip()
+    space_path = os.path.join(SPACES_DIR, spacename)
+    password_path = os.path.join(PASSWORDS_DIR, spacename)
+
+    if not os.path.exists(space_path):
+        os.makedirs(password_path)
+        with open(os.path.join(password_path, 'pass.pass'), 'w') as file:
+            file.write(password)
+        os.makedirs(space_path)
+        return Response(json.dumps({"Success": space_path }), status=200, mimetype='application/json')
+    return Response(json.dumps({"Error": 'Path exists'}), status=400, mimetype='application/json')
+
+#---- SUB SPACE CREATE ---- 
+@app.route('/sub/<path:subspace_path>/<target>', methods=['POST'])
+def create_subspace(subspace_path,target):
+    password = request.data.decode()
+    to_be_created = target
+    space = subspace_path.strip().split("/")[0]
+
+    space_path = os.path.join(SPACES_DIR, subspace_path)
+    target_path = os.path.join(space_path,target)
+    password_path = os.path.join(PASSWORDS_DIR, space)
+    if not os.path.exists(space_path) :
+        return Response(json.dumps({"Error": 'invalid path'}), status=400, mimetype='application/json')
+
+    elif os.path.exists(space_path) and  os.path.exists(target_path):
+        return Response(json.dumps({"Error": 'subspace already exists'}), status=400, mimetype='application/json')
+
+    elif os.path.exists(space_path) and not os.path.exists(target_path):
+        with open(os.path.join(password_path, 'pass.pass'), 'r') as file:
+            file_content = file.read()
+            if password == file_content:
+                os.makedirs(target_path)
+                return Response(json.dumps({"folders": f"subspace created | space: {os.path.join(subspace_path,target)}"}), status=200, mimetype='application/json')
+            return Response(json.dumps({"Error": f"{file_content}"}), status=200, mimetype='application/json')
+        return Response(json.dumps({"Error": 'password didnt match'}), status=200, mimetype='application/json')
+    return Response(json.dumps({"Error": 'inside else block'}), status=200, mimetype='application/json')
+
+# ---- WRITE IN PATH ----
+@app.route('/write/<path:target_path>/<password>/<filename>', methods=['POST'])
+def post_data(target_path, password, filename):
+    content = request.data.decode()
+    space = target_path.strip().split('/')[0]
+    filename = filename.strip()
+
+    password_path = os.path.join(PASSWORDS_DIR, space, 'pass.pass')
+    space_path = os.path.join(SPACES_DIR, space)
+
+    file_path = os.path.join(SPACES_DIR, target_path, filename)
+
+    if not os.path.exists(space_path) or not os.path.exists(password_path):
+        return Response(json.dumps({"Error": 'Space doesnot exists'}), status=400, mimetype='application/json')
+    
+    if os.path.exists(file_path):
+        return Response(json.dumps({"Error": 'file already exists'}), status=400, mimetype='application/json')
+
+    with open(password_path, 'r') as file:
+        stored_password = file.read().strip()
+        if password != stored_password:
+            return Response(json.dumps({"Error": 'Wrong pass'}), status=400, mimetype='application/json')
+        try:
+            with open(file_path, 'w') as file:
+                file_content = file.write(content)
+                return Response(json.dumps({"Success": 'Written'}), status=200, mimetype='application/json')
+        except Exception as e:
+            return Response(json.dumps({"Error": 'File opening'}), status=400, mimetype='application/json')
+    
+    return Response(json.dumps({"Error": 'Invalid server access'}), status=400, mimetype='application/json')
+
+# 
+#   ADMIN FUNCTIONS BELOW
+#
+
+# ---- LOGIN VALIDATER ----
+@app.route('/login', methods=['POST'])
+def login_checker():
+    adminpass = request.data.decode()
     try:
-        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
-            y = x.read().strip()
-            if y == adminpass:
+        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as file:
+            file_content = file.read().strip()
+            if file_content == adminpass:
                 return Response("True", status=200)
             else:
                 return Response("False", status=400)
     except FileNotFoundError:
         return Response("Password file not found", status=404)
 
-# content write garda
-@app.route('/post/<spacename>/<password>/<filename>', methods=['POST'])
-def post_data(spacename, password, filename):
-    content = request.data.decode()
-    spacename = spacename.strip()
-    filename = filename.strip()
-    password_path = os.path.join(PASSWORDS_DIR, spacename, 'pass.pass')
-    space_path = os.path.join(DATABASE_DIR,spacename)
-    file_path = os.path.join(space_path,filename)
-
-    if not os.path.exists(space_path):
-        return Response("Error: space does not exist\n", status=400)
-
-    if not os.path.exists(password_path):
-        return Response("Error: space does not exist\n", status=400)
+# ---- REMOVE FILE ----
+@app.route('/remove_file/<path:target_path>/<filename>', methods=['POST'])
+def remove_file_data(target_path, filename):
+    # mula k sochi rathe yaar yo lekhda , wasted so much time in this fucking single line
+    # file_path = os.path.join(DATABASE_DIR,'space',target_path, filename)
+    adminpass = request.data.decode()
+    file_path = os.path.join(SPACES_DIR,target_path,filename)
+    print(f"Trying to remove file at: {file_path}")
     
-    with open(password_path, 'r') as x:
-        stored_password = x.read().strip()
-        if password != stored_password:
-            return Response("wrong pass\n", status=400)
     if os.path.exists(file_path):
-        return Response("file already exists\n", status=400)
-
-    with open(file_path, 'w') as a:
-        formatted_content = f'{content}\n------\nBY SERVER\nADDED ON: {datetime.datetime.now().strftime("%c")}\n------'
-        a.write(formatted_content)
-        return Response('SUCCESS', status=200)
-
-    return Response('SERVER ERROR: INVALID ACCESS', status=500)
-
-
-# space banauda
-@app.route('/post/<spacename>/<password>', methods=['POST'])
-def create_space(spacename, password):
-    spacename = spacename.strip()
-    space_path = os.path.join(DATABASE_DIR, spacename)
-    password_path = os.path.join(PASSWORDS_DIR, spacename)
-    if not os.path.exists(space_path):
-        os.makedirs(password_path)
-        with open(os.path.join(password_path, 'pass.pass'), 'w') as file:
-            file.write(password)
-        os.makedirs(space_path)
-        return Response(f'SUCCESSFULLY CREATED SPACE :{spacename}', status=200)
-    return Response(f'SPACE ALREADY EXISTS {spacename}', status=400)
-
-# ADMIN FUNCTIONS
-# space ko file remove garna
-@app.route('/remove_file/<adminpass>/<spacename>/<filename>', methods=['POST'])
-def remove_file_data(spacename, filename, adminpass):
-    file_path = os.path.join(DATABASE_DIR, spacename, filename)
-    if os.path.exists(file_path):
-        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
-            y = x.read().strip()
-            if y == adminpass:
+        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as file:
+            file_content = file.read()
+            if adminpass == file_content:
                 os.remove(file_path)
-                return Response("Successfully removed", status=200)
-    return Response("invalid request", status=400)
-
-# space remove garne func
-@app.route('/remove_space/<adminpass>/<spacename>', methods=['POST'])
-def remove_space_data(spacename, adminpass):
-    space_path = os.path.join(DATABASE_DIR, spacename)
-    password_path = os.path.join(PASSWORDS_DIR, spacename)
-    if os.path.exists(space_path):
-        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as x:
-            y = x.read().strip()
-            if y == adminpass:
-                shutil.rmtree(space_path)
-                shutil.rmtree(password_path)
-                return Response("Successfully removed", status=200)
-    return Response("invalid request", status=400)
+                return Response(json.dumps({"Success": "removed"}), status=200, mimetype='application/json')
+            return Response(json.dumps({"Error": "Invalid password"}), status=400, mimetype='application/json')
+    return Response(json.dumps({"Error": "File doesnot exist"}), status=400, mimetype='application/json')
 
 
-#edit garda
-@app.route('/edit/<spacename>/<password>/<filename>', methods=['POST'])
-def edit_data(spacename, password, filename):
-    new_content = request.data.decode()
-    spacename = spacename.strip()
+# ---- REMOVE SPACE OR SUB SPACE ----
+@app.route('/remove_space/<path:target_path>', methods=['POST'])
+def remove_space_data(target_path):
+    adminpass = request.data.decode()
+    space = target_path.strip().split('/')[0]
+    space_path = os.path.join(SPACES_DIR, space)
+    list_path = list(target_path.strip().split('/'))
+    password_path = os.path.join(PASSWORDS_DIR, space)
+    target_path = os.path.join(SPACES_DIR, target_path)
+    if os.path.exists(target_path):
+        with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'),'r') as file:
+            file_content = file.read()
+            if adminpass == file_content:
+                if len(list_path) > 1:
+                    shutil.rmtree(target_path)
+                    return Response(json.dumps({"Success": len(list_path)}), status=200, mimetype='application/json')
+                else:
+                    shutil.rmtree(password_path)
+                    shutil.rmtree(target_path)
+                    return Response(json.dumps({"Success": len(list_path)}), status=200, mimetype='application/json')                    
+        return Response('opening error', status=400)
+    return Response(json.dumps({"Error": len(list_path)}), status=400, mimetype='application/json')
+
+# ---- EDIT CONTENT ----
+@app.route('/edit/<path:target_path>/<filename>', methods=['POST'])
+def edit_data(target_path, filename):
+    data = request.get_json()  
+    password = data.get("password", "").strip()
+    new_content = data.get("new_content", "").strip()
+    target_path = target_path.strip()
     filename = filename.strip()
-    password_path = os.path.join(PASSWORDS_DIR, spacename, 'pass.pass')
-    space_path = os.path.join(DATABASE_DIR,spacename)
-    file_path = os.path.join(space_path,filename)
+    password_path = os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass')
+    space_path = os.path.join(SPACES_DIR,target_path.strip().split('/')[0])
+    file_path = os.path.join(os.path.join(SPACES_DIR,target_path),filename)
 
     if not os.path.exists(space_path):
         return Response("Error: space does not exist\n", status=400)
@@ -146,19 +188,20 @@ def edit_data(spacename, password, filename):
     if not os.path.exists(password_path):
         return Response("Error: space does not exist\n", status=400)
     
-    with open(password_path, 'r') as x:
-        stored_password = x.read().strip()
+    with open(password_path, 'r') as file:
+        stored_password = file.read().strip()
         if password != stored_password:
             return Response("wrong pass\n", status=400)
-    # previous file chai exist garekai hunuparxa natra not allowed
     if os.path.exists(file_path):
-        with open(file_path, 'w') as a:
-            formatted_content = f'{new_content}\n------\nBY SERVER\UPDATED ON: {datetime.datetime.now().strftime("%c")}\n------'
-            a.write(formatted_content)
+        with open(file_path, 'w') as file:
+            # updated content lai save garne , paili logs haru hunthyo maile remove garidiye
+            formatted_content = f"{new_content}"
+            file.write(formatted_content)
             return Response('SUCCESS', status=200)
 
-    return Response('SERVER ERROR: INVALID ACCESS', status=500)
+    return Response({file_path}, status=500)
+
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000 , debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

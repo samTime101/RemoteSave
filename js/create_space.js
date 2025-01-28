@@ -5,8 +5,23 @@ var address = ''
 document.addEventListener("DOMContentLoaded", async () => {    
     address=  await post()
 });
-
 window.create_space = create_space;
+window.listen_options = listen_options;
+
+var create_space_option = document.querySelector('#create_space')
+var create_subspace_option = document.querySelector('#create_subspace')
+var span = document.querySelector('span')
+
+function listen_options(){
+if(create_space_option.checked){
+  span.innerText = 'create'
+  alert('space')
+}
+if (create_subspace_option.checked){
+  span.innerText = 'sub'
+  alert('subspace')
+}
+}
 
 async function create_space(event){
   event.preventDefault();
@@ -17,14 +32,14 @@ async function create_space(event){
       alert('dont put space invalid')
       return
     }
-    var data = await fetch(`${address}/post/${spacename}/${password}`, {
+    var data = await fetch(`${address}/${span.innerText}/${spacename}`, {
         method: "POST",
         headers: {
-            "Content-Type": "text/plain",
+            "Content-Type": "application/json",
         },
+         body: password
     });
-    var response = await data.text()
-    //check garna
+    var response = await data.json()
     console.log(response)
     if (data.status == 200){
         document.querySelector('#details').innerHTML = `      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

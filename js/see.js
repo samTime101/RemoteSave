@@ -1,78 +1,70 @@
+// REWRITTEN 26,27 JAN
 
 import { get } from "../server/credentials/export.js";
 var address;
-var space_name = ""
-
-window.join = join;
-window.redirect_ = redirect_;
 
 document.addEventListener("DOMContentLoaded", async () => {
-    
-    address=  await get()
-    await fetch_data();
+    address = await get();
+    await fetch_data('space');
+
 });
 
-async function fetch_data() {
-    try {
-        var data = await fetch(`${address}/list`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
+window.fetch_data = fetch_data;
+window.back = back;
+window.preview_file = preview_file
+var current_path
+async function fetch_data(path) {
+    if (path == 'space') {
+        document.querySelector('#back').style.display = 'none';
+    } else {
+        document.querySelector('#back').style.display = 'block';
+    }
+
+    var response = await fetch(`${address}/${path}`);
+    var data = await response.json();
+    current_path = path;
+
+    document.querySelector('#list').innerHTML = "";
+    document.querySelector('#status').innerHTML = `CURRENT PATH : ${path.toUpperCase()}`;
+    
+    if ("folder" in data) {
+        for (let item of data["folder"]) {
+            let newPath = `${path}/${item}`;
+            let itemResponse = await fetch(`${address}/${newPath}`);
+            let itemData = await itemResponse.json();
+
+            if ("folder" in itemData) {
+                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="fetch_data('${newPath}')">📁 ${item}</a>`;
+            } else {
+                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="preview_file('${newPath}')">📄 ${item}</a>`;
             }
-        });
-        var response = await data.json();
-        console.log(response);
-
-        response.forEach(item => {
-            document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="join(this)">${item}</a>`;
-        });
-    } catch (error) {
-        document.querySelector('#list').innerHTML = 'ASK SAMIP TO TURN ON SERVER <br> THE SERVER IS CURRENTLY SWITCHED OFF'
-    }
-}
-
-async function join(b){
-     space_name = b.innerText
-    var data = await fetch(`${address}/space/${space_name}`,{
-        method:"GET",
-        headers:{
-            "Content-Type":"application/json",
-
         }
-    })
-    var response = await data.json()
-    document.querySelector('#details').innerHTML = ""
-    document.querySelector('#status').innerText = ''
-    if(data.ok){
-    document.querySelector('#status').innerHTML = `CONNECTED TO ${space_name}`
-    console.log(data.ok)
-    response.forEach(item => {
-        document.querySelector('#details').innerHTML += `<a class="list-group-item list-group-item-action" onclick="redirect_(this)">${item}</a>`;
-    });
-    }
-    else{
-     document.querySelector('#details').innerHTML = `ERROR : THE SPACE DOESNOT EXIST`
+    } else {
+        console.log("Unknown response format.");
     }
 }
-async function redirect_(a) {
-var targeted_file_name = a.innerText;
-var data = await fetch(`${address}/space/${space_name}/${targeted_file_name}`, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-    
-    }
-});
-var response_data = await data.text();
-console.log(response_data);
 
+async function preview_file(path) {
+    var response = await fetch(`${address}/${path}`);
+    var data = await response.json(); 
+    console.log(data)
 var newWindow = window.open('', '_blank');
 if (newWindow) {
     newWindow.document.open();
-    newWindow.document.write(`<pre>${response_data}</pre>`);
+    newWindow.document.write(`<pre>${data['file']}</pre>`);
     newWindow.document.close();
 } else {
     console.error("POP UP ERROR");
 }
 }
+
+async function back(){
+    current_path = current_path.split('/').slice(0, -1).join('/');
+    console.log(current_path.split('/').slice(0, -1))
+    await fetch_data(current_path)
+}
+
+
+
+
 
