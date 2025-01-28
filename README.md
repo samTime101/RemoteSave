@@ -1,7 +1,7 @@
 # Remote Save
 Remote save , a simple application on web that simply exists currently on development
 
-> [!IMPORTANT]  
+> [!CAUTION]  
 > React code is way behind , will be working on react soon , current react code is `old` dont reference it
 
 > [!NOTE]
