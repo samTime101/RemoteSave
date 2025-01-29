@@ -1,5 +1,5 @@
 // REWRITTEN 26,27 JAN
-
+// corrected and tried to optimize the fetching ...
 import { get } from "../server/credentials/export.js";
 var address;
 
@@ -13,6 +13,7 @@ window.fetch_data = fetch_data;
 window.back = back;
 window.preview_file = preview_file
 var current_path
+
 async function fetch_data(path) {
     if (path == 'space') {
         document.querySelector('#back').style.display = 'none';
@@ -26,21 +27,23 @@ async function fetch_data(path) {
 
     document.querySelector('#list').innerHTML = "";
     document.querySelector('#status').innerHTML = `CURRENT PATH : ${path.toUpperCase()}`;
-    
-    if ("folder" in data) {
-        for (let item of data["folder"]) {
-            let newPath = `${path}/${item}`;
-            let itemResponse = await fetch(`${address}/${newPath}`);
-            let itemData = await itemResponse.json();
 
-            if ("folder" in itemData) {
-                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="fetch_data('${newPath}')">📁 ${item}</a>`;
+    if ("folder" in data) {
+        const allPromises = data["folder"].map(async (item) => {
+            let newPath = `${path}/${item}`;
+            let item_response = await fetch(`${address}/${newPath}`);
+            let item_data = await item_response.json();
+
+            if ("folder" in item_data) {
+                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="fetch_data('${newPath}')">📁${item}</a>`;
             } else {
-                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="preview_file('${newPath}')">📄 ${item}</a>`;
+                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="preview_file('${newPath}')">📄${item}</a>`;
             }
-        }
+        });
+
+        await Promise.all(allPromises);
     } else {
-        console.log("Unknown response format.");
+        console.log("something happened bro...");
     }
 }
 
@@ -63,8 +66,5 @@ async function back(){
     console.log(current_path.split('/').slice(0, -1))
     await fetch_data(current_path)
 }
-
-
-
 
 
