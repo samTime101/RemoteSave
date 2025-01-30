@@ -139,7 +139,7 @@ def remove_file_data(target_path, filename):
     
     if os.path.exists(file_path):
         with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as file:
-            file_content = file.read()
+            file_content = file.read().strip()
             if adminpass == file_content:
                 os.remove(file_path)
                 return Response(json.dumps({"Success": "removed"}), status=200, mimetype='application/json')
@@ -158,7 +158,7 @@ def remove_space_data(target_path):
     target_path = os.path.join(SPACES_DIR, target_path)
     if os.path.exists(target_path):
         with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'),'r') as file:
-            file_content = file.read()
+            file_content = file.read().strip()
             if adminpass == file_content:
                 if len(list_path) > 1:
                     shutil.rmtree(target_path)
