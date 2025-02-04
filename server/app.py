@@ -1,6 +1,7 @@
+# FEB 4 , SENDING DATA VIA JSON
 # CODE BEING RE WRITTEN IN JAN 25,26,27
 # AUTHOR SAMIP REGMI
-# TODO : change the directly taken password from endpoint to JSON
+# TODO [x] DONE: change the directly taken password from endpoint to JSON
 # SHIT
 
 from flask import Flask, request, Response, jsonify
@@ -27,7 +28,7 @@ def space(spacename):
         return Response(json.dumps({"error": "Not Found" }), status=404, mimetype='application/json')
 
     if os.path.isdir(space_path):
-        space_contents = os.listdir(space_path) 
+        space_contents = os.listdir(space_path)
         return Response(json.dumps({"folder": space_contents}), status=200, mimetype='application/json')
         # return Response(json.dumps(space_contents), status=200, mimetype='application/json')
 
@@ -53,7 +54,7 @@ def create_space(spacename):
         return Response(json.dumps({"Success": space_path }), status=200, mimetype='application/json')
     return Response(json.dumps({"Error": 'Path exists'}), status=400, mimetype='application/json')
 
-#---- SUB SPACE CREATE ---- 
+#---- SUB SPACE CREATE ----
 @app.route('/sub/<path:subspace_path>/<target>', methods=['POST'])
 def create_subspace(subspace_path,target):
     password = request.data.decode()
@@ -80,9 +81,12 @@ def create_subspace(subspace_path,target):
     return Response(json.dumps({"Error": 'inside else block'}), status=200, mimetype='application/json')
 
 # ---- WRITE IN PATH ----
-@app.route('/write/<path:target_path>/<password>/<filename>', methods=['POST'])
-def post_data(target_path, password, filename):
-    content = request.data.decode()
+@app.route('/write/<path:target_path>/<filename>', methods=['POST'])
+def post_data(target_path, filename):
+    data = request.get_json()
+    password = data.get("password", "").strip()
+    content = data.get("content", "").strip()
+    # content = request.data.decode()
     space = target_path.strip().split('/')[0]
     filename = filename.strip()
 
@@ -93,7 +97,7 @@ def post_data(target_path, password, filename):
 
     if not os.path.exists(space_path) or not os.path.exists(password_path):
         return Response(json.dumps({"Error": 'Space doesnot exists'}), status=400, mimetype='application/json')
-    
+
     if os.path.exists(file_path):
         return Response(json.dumps({"Error": 'file already exists'}), status=400, mimetype='application/json')
 
@@ -107,10 +111,10 @@ def post_data(target_path, password, filename):
                 return Response(json.dumps({"Success": 'Written'}), status=200, mimetype='application/json')
         except Exception as e:
             return Response(json.dumps({"Error": 'File opening'}), status=400, mimetype='application/json')
-    
+
     return Response(json.dumps({"Error": 'Invalid server access'}), status=400, mimetype='application/json')
 
-# 
+#
 #   ADMIN FUNCTIONS BELOW
 #
 
@@ -136,7 +140,7 @@ def remove_file_data(target_path, filename):
     adminpass = request.data.decode()
     file_path = os.path.join(SPACES_DIR,target_path,filename)
     print(f"Trying to remove file at: {file_path}")
-    
+
     if os.path.exists(file_path):
         with open(os.path.join(PASSWORDS_DIR, 'admin', 'pass.pass'), 'r') as file:
             file_content = file.read().strip()
@@ -166,14 +170,14 @@ def remove_space_data(target_path):
                 else:
                     shutil.rmtree(password_path)
                     shutil.rmtree(target_path)
-                    return Response(json.dumps({"Success": len(list_path)}), status=200, mimetype='application/json')                    
+                    return Response(json.dumps({"Success": len(list_path)}), status=200, mimetype='application/json')
         return Response('opening error', status=400)
     return Response(json.dumps({"Error": len(list_path)}), status=400, mimetype='application/json')
 
 # ---- EDIT CONTENT ----
 @app.route('/edit/<path:target_path>/<filename>', methods=['POST'])
 def edit_data(target_path, filename):
-    data = request.get_json()  
+    data = request.get_json()
     password = data.get("password", "").strip()
     new_content = data.get("new_content", "").strip()
     target_path = target_path.strip()
@@ -187,7 +191,7 @@ def edit_data(target_path, filename):
 
     if not os.path.exists(password_path):
         return Response("Error: space does not exist\n", status=400)
-    
+
     with open(password_path, 'r') as file:
         stored_password = file.read().strip()
         if password != stored_password:
