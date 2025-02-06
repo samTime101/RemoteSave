@@ -8,7 +8,8 @@ Remote save , a simple application on web that simply exists currently on develo
 > `app.py` now supports subfolders !!!! was very hard
 
 ### Todo
-- [ ] add flow bite and remove bootstrap5
+- [ ] Fix Css for input , textarea and buttons
+- [x] remove bootstrap5 (except admin)
 - [ ] remove passprompt.js and use modal
 - [x] take password in JSON rather than endpoint
 - [ ] port latest subfolder functionality to react
@@ -16,6 +17,7 @@ Remote save , a simple application on web that simply exists currently on develo
 - [x] add edit content functionality to React
 - [x] added remove file and remove space functionality to admin
 - [x] added admin functions
+
 ## Preview
 Vanilla JS(latest) : [https://remote-save.vercel.app/](https://remote-save.vercel.app/)
 
@@ -33,8 +35,8 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Feb 4
-- Write content data sent to server via JSON rather than endpoint
+## Feb 6
+- Removed Bootstrap 
 
 ### To run locally (vanilla)
 - just clone and run it .... that's it
