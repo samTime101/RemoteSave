@@ -35,9 +35,9 @@ async function fetch_data(path) {
             let item_data = await item_response.json();
 
             if ("folder" in item_data) {
-                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="fetch_data('${newPath}')">📁${item}</a>`;
+                document.querySelector('#list').innerHTML += `<li onclick="fetch_data('${newPath}')">📁${item}</li>`;
             } else {
-                document.querySelector('#list').innerHTML += `<a class="list-group-item list-group-item-action" onclick="preview_file('${newPath}')">📄${item}</a>`;
+                document.querySelector('#list').innerHTML += `<li onclick="preview_file('${newPath}')">📄${item}</li>`;
             }
         });
 
