@@ -51,7 +51,7 @@ def create_space(spacename):
         with open(os.path.join(password_path, 'pass.pass'), 'w') as file:
             file.write(password)
         os.makedirs(space_path)
-        return Response(json.dumps({"Success": space_path }), status=200, mimetype='application/json')
+        return Response(json.dumps({"Success": "Successfully Created" }), status=200, mimetype='application/json')
     return Response(json.dumps({"Error": 'Path exists'}), status=400, mimetype='application/json')
 
 #---- SUB SPACE CREATE ----
