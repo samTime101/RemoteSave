@@ -35,9 +35,9 @@ def space(spacename):
     if os.path.isfile(space_path):
         with open(f"{space_path}","r") as file:
             file_content = file.read()
+            # return render_template("index.html", file_content=file_content)
             # return Response(file_content, status=200, mimetype='text/plain')
-            return render_template("index.html", file_content=file_content)
-            # return Response(json.dumps({"file" : file_content}), status=200, mimetype='text/plain')
+            return Response(json.dumps({"file" : file_content}), status=200, mimetype='text/plain')
 
 # ---- SPACE CREATE ----
 @app.route('/create/<spacename>', methods=['POST'])
