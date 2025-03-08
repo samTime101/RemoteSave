@@ -3,8 +3,52 @@ import { post } from "../server/credentials/export.js";
 var address = "";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  document.querySelector("#content-upload").style.display = "none";
+
   address = await post();
 });
+
+let user_choice = null;
+document.querySelectorAll("input").forEach((item) => {
+  item.addEventListener("change", async () => {
+    if (item.checked) {
+      user_choice = item.value;
+      if (user_choice) {
+        await writeorupload();
+      }
+    }
+  });
+  if (item.checked) {
+    user_choice = item.value;
+  }
+});
+
+
+document.querySelector("#file").addEventListener("change", async () => {
+  var file = document.querySelector("#file").files[0];
+  if (file) {
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function () {
+      document.querySelector("#text_content").value = reader.result;
+      document.querySelector("#filename").value = file.name;
+    };
+  }
+});
+
+
+async function writeorupload(){
+  if (user_choice == "write") {
+    console.log("write");
+    document.querySelector("#content-write").style.display = "block";
+    document.querySelector("#content-upload").style.display = "none";
+  } else {
+    console.log("upload");
+    document.querySelector("#content-write").style.display = "none";
+    document.querySelector("#content-upload").style.display = "block";
+  }
+}
+
 
 window.post_data = post_data;
 async function post_data() {

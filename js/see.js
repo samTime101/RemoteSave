@@ -13,6 +13,7 @@ window.fetch_data = fetch_data;
 window.back = back;
 window.preview_file = preview_file
 var current_path
+window.download_file = download_file
 
 async function fetch_data(path) {
     if (path == 'space') {
@@ -35,10 +36,23 @@ async function fetch_data(path) {
             let item_data = await item_response.json();
 
             if ("folder" in item_data) {
-                document.querySelector('#list').innerHTML += `<li onclick="fetch_data('${newPath}')">📁${item}</li>`;
-            } else {
-                document.querySelector('#list').innerHTML += `<li onclick="preview_file('${newPath}')">📄${item}</li>`;
-            }
+                document.querySelector('#list').innerHTML += `
+                    <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+        <a class="text-decoration-none flex-grow-1" onclick="fetch_data('${newPath}')">
+            📁 ${item}
+        </a>
+    </div>
+    `;            } else {
+        document.querySelector('#list').innerHTML += `
+        <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+            <a class="text-decoration-none flex-grow-1" onclick="preview_file('${newPath}')">
+                📄 ${item}
+            </a>
+            <div>
+                <button onclick="download_file('${newPath}')" class="btn btn-primary btn-sm">📥</button>
+            </div>
+        </div>
+                    `            }
         });
 
         await Promise.all(allPromises);
@@ -68,3 +82,16 @@ async function back(){
 }
 
 
+
+//download garna
+async function download_file(path){
+    var response = await fetch(`${address}/${path}`);
+    var data = await response.json();
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data['file']));
+    element.setAttribute('download', `${path.split('/').slice(-1)[0]}`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}

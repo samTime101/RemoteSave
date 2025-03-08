@@ -3,8 +3,9 @@
 # AUTHOR SAMIP REGMI
 # TODO [x] DONE: change the directly taken password from endpoint to JSON
 # SHIT
+# ADDED STATUS CODE 
 
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, jsonify
 import os
 import json
 from flask_cors import CORS
@@ -35,7 +36,6 @@ def space(spacename):
     if os.path.isfile(space_path):
         with open(f"{space_path}","r") as file:
             file_content = file.read()
-            # return render_template("index.html", file_content=file_content)
             # return Response(file_content, status=200, mimetype='text/plain')
             return Response(json.dumps({"file" : file_content}), status=200, mimetype='text/plain')
 
@@ -76,10 +76,10 @@ def create_subspace(subspace_path,target):
             file_content = file.read()
             if password == file_content:
                 os.makedirs(target_path)
-                return Response(json.dumps({"folders": f"subspace created | space: {os.path.join(subspace_path,target)}"}), status=200, mimetype='application/json')
-            return Response(json.dumps({"Error": f"{file_content}"}), status=200, mimetype='application/json')
-        return Response(json.dumps({"Error": 'password didnt match'}), status=200, mimetype='application/json')
-    return Response(json.dumps({"Error": 'inside else block'}), status=200, mimetype='application/json')
+                return Response(json.dumps({"Success": f"subspace created | space: {os.path.join(subspace_path,target)}"}), status=200, mimetype='application/json')
+            return Response(json.dumps({"Error": 'fuck it '}), status=400, mimetype='application/json')
+        return Response(json.dumps({"Error": 'password didnt match'}), status=400, mimetype='application/json')
+    return Response(json.dumps({"Error": 'inside else block'}), status=400, mimetype='application/json')
 
 # ---- WRITE IN PATH ----
 @app.route('/write/<path:target_path>/<filename>', methods=['POST'])

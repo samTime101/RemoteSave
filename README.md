@@ -8,6 +8,7 @@ Remote save , a simple application on web that simply exists currently on develo
 > `app.py` now supports subfolders !!!! was very hard
 
 ### Todo
+- [x] added bootstrap again because previous css was looking like shit
 - [ ] Fix Css for input , textarea and buttons
 - [x] remove bootstrap5 (except admin)
 - [ ] remove passprompt.js and use modal
@@ -37,6 +38,9 @@ Initial Commit: Jan 1 2025
 ```
 ## Feb 6
 - Removed Bootstrap 
+
+## Mar 8
+- Added Bootstrap 
 
 ### To run locally (vanilla)
 - just clone and run it .... that's it

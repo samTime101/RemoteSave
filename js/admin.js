@@ -29,6 +29,8 @@ window.edit_file = edit_file;
 window.fetch_data = fetch_data;
 window.back = back;
 window.preview_file = preview_file
+window.download_file = download_file
+// window.download_space = download_space
 var current_path
 /*
 async function fetch_data(path) {
@@ -121,6 +123,7 @@ async function fetch_data(path) {
         <div>
             <button onclick="edit_file('${path.split('/').slice(1).join('/')}','${item}')" class="btn btn-primary btn-sm me-2" data-toggle="modal" data-target="#warningModal">✏️</button>
             <button onclick="delete_file('${path.split('/').slice(1).join('/')}','${item}')" class="btn btn-danger btn-sm">X</button>
+            <button onclick="download_file('${newPath}')" class="btn btn-primary btn-sm">📥</button>
         </div>
     </div>
                 `;
@@ -145,6 +148,19 @@ if (newWindow) {
     console.error("POP UP ERROR");
 }
 }
+//download garna
+async function download_file(path){
+    var response = await fetch(`${address_get}/${path}`);
+    var data = await response.json();
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data['file']));
+    element.setAttribute('download', `${path.split('/').slice(-1)[0]}`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
 
 async function back(){
     current_path = current_path.split('/').slice(0, -1).join('/');
@@ -244,3 +260,6 @@ async function edit_file(space_name, targeted_file_name) {
   });
 
 }
+
+
+
