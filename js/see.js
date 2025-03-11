@@ -1,11 +1,16 @@
 // REWRITTEN 26,27 JAN
 // corrected and tried to optimize the fetching ...
+
+//updated on March 11
 import { get } from "../server/credentials/export.js";
 var address;
 
 document.addEventListener("DOMContentLoaded", async () => {
     address = await get();
-    await fetch_data('space');
+    const urlParams = new URLSearchParams(window.location.search);
+    const path = urlParams.get('path') || 'space';
+    // alert(path)
+    await fetch_data(path);
 
 });
 
@@ -16,6 +21,10 @@ var current_path
 window.download_file = download_file
 
 async function fetch_data(path) {
+
+    // state , title , url
+    window.history.pushState({}, null, `?path=${path}`);
+
     if (path == 'space') {
         document.querySelector('#back').style.display = 'none';
     } else {
