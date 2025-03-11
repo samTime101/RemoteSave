@@ -38,6 +38,9 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
+## Mar 11
+- Added Shareable link feature
+- [https://remote-save.vercel.app/pages/see.html?path=space/admin/March11_update](https://remote-save.vercel.app/pages/see.html?path=space/admin/March11_update)
 
 
 ### To run locally (vanilla)
