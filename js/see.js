@@ -9,9 +9,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     address = await get();
     const urlParams = new URLSearchParams(window.location.search);
     const path = urlParams.get('path') || 'space';
+    var response = await fetch(`${address}/${path}`);
+    var data = await response.json();
     // alert(path)
-    await fetch_data(path);
+    // await fetch_data(path);
 
+    //file huda direct preview garne 
+    if ("file" in data) {
+        await preview_file(path);
+    } else {
+        await fetch_data(path);
+    }
 });
 
 window.fetch_data = fetch_data;
@@ -71,17 +79,38 @@ async function fetch_data(path) {
 }
 
 async function preview_file(path) {
+    current_path = path;
+
+    document.querySelector('#back').style.display = 'block';
+    
+    window.history.pushState({}, null, `?path=${path}`);
     var response = await fetch(`${address}/${path}`);
     var data = await response.json(); 
     console.log(data)
-var newWindow = window.open('', '_blank');
-if (newWindow) {
-    newWindow.document.open();
-    newWindow.document.write(`<pre>${data['file']}</pre>`);
-    newWindow.document.close();
-} else {
-    console.error("POP UP ERROR");
-}
+    document.querySelector('#list').innerHTML = "";
+    document.querySelector('#status').innerHTML = `CURRENT PATH : ${path.toUpperCase()}`;
+    document.querySelector('#list').innerHTML = `
+
+ <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+<a class="text-decoration-none flex-grow-1">
+    📄 ${path.split('/').slice(-1)[0]}
+</a>
+<div>
+    <button onclick="download_file('${path}')" class="btn btn-primary btn-sm">📥</button>
+</div>
+</div>
+<div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+<pre>${data['file']}</pre>
+</div>
+    `;
+// var newWindow = window.open('', '_blank');
+// if (newWindow) {
+//     newWindow.document.open();
+//     newWindow.document.write(`<pre>${data['file']}</pre>`);
+//     newWindow.document.close();
+// } else {
+//     console.error("POP UP ERROR");
+// }
 }
 
 async function back(){

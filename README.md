@@ -8,9 +8,10 @@ Remote save , a simple application on web that simply exists currently on develo
 > `app.py` now supports subfolders !!!! was very hard
 
 ### Todo
+- [ ] Introduce dark mode
 - [x] added bootstrap again because previous css was looking like shit
 - [x] added download option
-- [ ] Fix Css for input , textarea and buttons
+- [x] Fix Css for input , textarea and buttons [used bootstrap]
 - [x] remove bootstrap5 (except admin)
 - [ ] remove passprompt.js and use modal
 - [x] take password in JSON rather than endpoint
@@ -37,13 +38,6 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Mar 8
-- Added Bootstrap 
-- added download option
-
-## Feb 6
-- Removed Bootstrap 
-
 
 
 ### To run locally (vanilla)
