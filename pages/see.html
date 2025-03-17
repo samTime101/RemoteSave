@@ -9,26 +9,29 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 <body class="bg-dark text-light py-4">
-    <div class="container w-50 mt-5">
-        <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
-            <div class="card-body p-4">
-                <h2 class="text-white fw-bold mb-4">SHARE VER</h2>
-                <p class="text-light mb-3">COPYRIGHT: SAMIP REGMI<br>Current version: 17 | UI updates</p>
-                <a href="../index.html" class="btn btn-outline-light mb-3">
-                  <i class="bi bi-house"></i>
-                </a>
-                <hr class="border-secondary opacity-25 my-3">
-                
-                <button onclick="back()" id="back" style="display:none;" class="btn btn-outline-primary mb-3"><i class="bi bi-arrow-up"></i> Back</button>
-                <div id="status" class="text-light mt-3"></div>
-                <div id="list" class="text-light mt-3"></div>
-                <div id="details" class="text-light mt-4"></div>
-                <p id="info" class="text-light"></p>
-                <div id="sub" class="mb-2"></div>
+    <div class="container-fluid px-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
+                    <div class="card-body p-4">
+                        <h2 class="text-white fw-bold mb-4">SHARE VER</h2>
+                        <p class="text-light mb-3">COPYRIGHT: SAMIP REGMI<br>Current version: 17 | UI updates</p>
+                        <a href="../index.html" class="btn btn-outline-light mb-3">
+                          <i class="bi bi-house"></i>
+                        </a>
+                        <hr class="border-secondary opacity-25 my-3">
+
+                        <button onclick="back()" id="back" style="display:none;" class="btn btn-outline-primary mb-3"><i class="bi bi-arrow-up"></i> Back</button>
+                        <div id="status" class="text-light mt-3"></div>
+                        <div id="list" class="text-light mt-3"></div>
+                        <div id="details" class="text-light mt-4"></div>
+                        <p id="info" class="text-light"></p>
+                        <div id="sub" class="mb-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-     
     <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-gray-900 border-0 rounded-4 shadow-lg">

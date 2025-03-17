@@ -21,51 +21,54 @@
 </head>
 
 <body class="bg-dark text-light py-4">
-    <div class="container w-50 mt-5">
-        <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
-            <div class="card-body p-4">
-                <h2 class="text-white fw-bold mb-4">Upload Content</h2>
+    <div class="container-fluid px-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
+                    <div class="card-body p-4">
+                        <h2 class="text-white fw-bold mb-4">Upload Content</h2>
 
-                <form>
-                    <div class="mb-3">
-                        <label for="spacename" class="form-label">Path of Space?</label>
-                        <input type="text" class="form-control" id="spacename" placeholder="eg: general" required>
+                        <form>
+                            <div class="mb-3">
+                                <label for="spacename" class="form-label">Path of Space?</label>
+                                <input type="text" class="form-control" id="spacename" placeholder="eg: general" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="filename" class="form-label">Filename</label>
+                                <input type="text" class="form-control" id="filename" placeholder="eg: announcement.txt" name="filename" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="pass" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="radio" id="select1" name="select" value="write" checked />
+                                <label for="select1">Write</label><br />
+                                <input type="radio" id="select2" name="select" value="upload" />
+                                <label for="select2">Upload</label><br />
+                            </div>
+
+                            <div class="mb-3" id="content-write">
+                                <label for="content" class="form-label">Content</label>
+                                <textarea class="form-control" id="text_content" rows="3" required></textarea>
+                            </div>
+
+                            <div class="mb-3" id="content-upload">
+                                <label for="file" class="form-label">Upload File</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="button" id="button" class="btn btn-primary mb-3" onclick="post_data()">Upload</button>
+                            </div>
+
+                            <div id="details" class="mt-4"></div>
+                        </form>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="filename" class="form-label">Filename</label>
-                        <input type="text" class="form-control" id="filename" placeholder="eg: announcement.txt" name="filename" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="pass" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="radio" id="select1" name="select" value="write" checked />
-                        <label for="select1">Write</label><br />
-                        <input type="radio" id="select2" name="select" value="upload" />
-                        <label for="select2">Upload</label><br />
-                    </div>
-
-                    <div class="mb-3" id="content-write">
-                        <label for="content" class="form-label">Content</label>
-                        <textarea class="form-control" id="text_content" rows="3" required></textarea>
-                    </div>
-
-                    <div class="mb-3" id="content-upload">
-                        <label for="file" class="form-label">Upload File</label>
-                        <input type="file" class="form-control" id="file" name="file" required>
-                    </div>
-
-                    <div class="col-auto">
-                        <button type="button" id="button" class="btn btn-primary mb-3" onclick="post_data()">Upload</button>
-                    </div>
-
-                    <div id="details" class="mt-4">
-                        </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

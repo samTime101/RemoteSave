@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Official website of Samip Regmi, a simple person who just finds coding interesting ..." />
-    <meta name="keywords"
-        content="Samip Regmi, samip101, SamipTime101, samipregmi.com, who is Samip Regmi, a simple person who just finds coding interesting ..." />
+    <meta name="description" content="Official website of Samip Regmi, a simple person who just finds coding interesting ..." />
+    <meta name="keywords" content="Samip Regmi, samip101, SamipTime101, samipregmi.com, who is Samip Regmi, a simple person who just finds coding interesting ..." />
     <meta name="author" content="Samip Regmi" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://samipregmi.ct.ws/" />
@@ -24,24 +22,28 @@
 </head>
 
 <body class="bg-dark text-light py-4">
-    <div class="container w-50 mt-5">
-        <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
-            <div class="card-body p-4">
-                <h2 class="text-white fw-bold mb-4">Admin Login</h2>
-                <form>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="username-addon">Username</span>
-                        <input type="text" class="form-control" id="username" name="username" aria-describedby="username-addon" placeholder="Enter Username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
-                    </div>
+    <div class="container-fluid px-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card mb-4 bg-gray-900 border-0 rounded-4 shadow-lg">
+                    <div class="card-body p-4">
+                        <h2 class="text-white fw-bold mb-4">Admin Login</h2>
+                        <form>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="username-addon">Username</span>
+                                <input type="text" class="form-control" id="username" name="username" aria-describedby="username-addon" placeholder="Enter Username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                            </div>
 
-                    <button type="button" class="btn btn-primary mt-4" onclick="login()">Submit</button>
-                </form>
+                            <button type="button" class="btn btn-primary mt-4" onclick="login()">Submit</button>
+                        </form>
 
-                <div id="details" class="mt-4"></div>
+                        <div id="details" class="mt-4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
