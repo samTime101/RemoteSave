@@ -4,15 +4,11 @@ Remote save , a simple application on web that simply exists currently on develo
 > [!CAUTION]
 > React code is way behind , will be working on react soon , current react code is `old` dont reference it
 
-> [!NOTE]
-> `app.py` now supports subfolders !!!! was very hard
-
 ### Todo
-- [ ] Introduce dark mode
+- [x] Introduce dark mode
 - [x] added bootstrap again because previous css was looking like shit
 - [x] added download option
 - [x] Fix Css for input , textarea and buttons [used bootstrap]
-- [x] remove bootstrap5 (except admin)
 - [ ] remove passprompt.js and use modal
 - [x] take password in JSON rather than endpoint
 - [ ] port latest subfolder functionality to react
@@ -38,9 +34,9 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Mar 11
-- Added Shareable link feature
-- [https://remote-save.vercel.app/pages/see.html?path=space/admin/March11_update](https://remote-save.vercel.app/pages/see.html?path=space/admin/March11_update)
+## Mar 17
+- Dark mode | UI updates
+- [https://remote-save.vercel.app/pages/see.html?path=space/admin/March17](https://remote-save.vercel.app/pages/see.html?path=space/admin/March17)
 
 
 ### To run locally (vanilla)

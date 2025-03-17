@@ -61,7 +61,7 @@ async function fetch_data(path) {
     </div>
     `;            } else {
         document.querySelector('#list').innerHTML += `
-        <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+        <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action mt-2">
             <a class="text-decoration-none flex-grow-1" onclick="preview_file('${newPath}')">
                 📄 ${item}
             </a>
@@ -91,7 +91,7 @@ async function preview_file(path) {
     document.querySelector('#status').innerHTML = `CURRENT PATH : ${path.toUpperCase()}`;
     document.querySelector('#list').innerHTML = `
 
- <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
+ <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action mb-3">
 <a class="text-decoration-none flex-grow-1">
     📄 ${path.split('/').slice(-1)[0]}
 </a>
