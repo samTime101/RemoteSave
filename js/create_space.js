@@ -28,6 +28,12 @@ async function create_space(event){
     try{
     var spacename = document.querySelector('#spacename').value
     var password = document.querySelector('#password').value
+
+    if(!spacename || !password){
+      alert("bruh")
+      return
+    }
+
     if(spacename.includes(' ')){
       alert('dont put space invalid')
       return

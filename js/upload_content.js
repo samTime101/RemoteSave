@@ -58,6 +58,13 @@ async function post_data() {
     var filename = document.querySelector("#filename").value;
     // var password = document.querySelector("#password").value;
     var content = document.querySelector("#text_content").value;
+
+    //check garne fucckk this shitt
+    if(!spacename || !password || !filename || !content){
+      alert("bruuh")
+      return
+    }
+
     var details = document.querySelector("#details");
     // alert(spacename)
     // alert(filename)

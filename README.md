@@ -5,7 +5,8 @@ Remote save , a simple application on web that simply exists currently on develo
 > React code is way behind , will be working on react soon , current react code is `old` dont reference it
 
 ### Todo
-- [ ] add some sort of client side validator when empty text fields are subjected to submission 
+
+- [x] add some sort of client side validator when empty text fields are subjected to submission 
 - [x] Introduce dark mode
 - [x] added bootstrap again because previous css was looking like shit
 - [x] added download option
