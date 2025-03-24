@@ -6,6 +6,7 @@ Remote save , a simple application on web that simply exists currently on develo
 
 ### Todo
 
+- [x] Copy functionality added
 - [x] add some sort of client side validator when empty text fields are subjected to submission 
 - [x] Introduce dark mode
 - [x] added bootstrap again because previous css was looking like shit
@@ -36,10 +37,8 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Mar 17
-- Dark mode | UI updates
-- [https://remote-save.vercel.app/pages/see.html?path=space/admin/March17](https://remote-save.vercel.app/pages/see.html?path=space/admin/March17)
-
+## Mar 24
+- Copy Functionality
 
 ### To run locally (vanilla)
 - just clone and run it .... that's it

@@ -27,7 +27,7 @@ window.back = back;
 window.preview_file = preview_file
 var current_path
 window.download_file = download_file
-
+window.copy_content = copy_content;
 async function fetch_data(path) {
 
     // state , title , url
@@ -97,6 +97,7 @@ async function preview_file(path) {
 </a>
 <div>
     <button onclick="download_file('${path}')" class="btn btn-primary btn-sm">📥</button>
+    <button onclick="copy_content('${path}')" class="btn btn-primary btn-sm">📋</button>    
 </div>
 </div>
 <div class="d-flex justify-content-between align-items-center list-group-item list-group-item-action">
@@ -132,4 +133,11 @@ async function download_file(path){
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+}
+
+async function copy_content(path){
+    var response = await fetch(`${address}/${path}`);
+    var data = await response.json();
+    navigator.clipboard.writeText(data['file']);
+    alert("Copied");
 }
