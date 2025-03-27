@@ -6,6 +6,7 @@ Remote save , a simple application on web that simply exists currently on develo
 
 ### Todo
 
+- [ ] Add Download support for folder what shall download all its contents
 - [x] Copy functionality added
 - [x] add some sort of client side validator when empty text fields are subjected to submission 
 - [x] Introduce dark mode
