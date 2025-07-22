@@ -5,6 +5,9 @@
 # SHIT
 # ADDED STATUS CODE 
 
+# JULY 22
+# ADDED TIME BASED SORTED LISTING
+
 from flask import Flask, request, Response, jsonify
 import os
 import json
@@ -30,7 +33,13 @@ def space(spacename):
 
     if os.path.isdir(space_path):
         space_contents = os.listdir(space_path)
-        return Response(json.dumps({"folder": space_contents}), status=200, mimetype='application/json')
+        # https://stackoverflow.com/questions/168409/how-do-you-get-a-directory-listing-sorted-by-creation-date-in-python
+        # SEVENTH ANSWER by nic     
+        full_list = [os.path.join(space_path,i) for i in space_contents]
+        time_sorted_list = sorted(full_list, key=os.path.getmtime , reverse=True)
+        sorted_filename_list = [ os.path.basename(i) for i in time_sorted_list]
+        print(sorted_filename_list)
+        return Response(json.dumps({"folder": sorted_filename_list}), status=200, mimetype='application/json')
         # return Response(json.dumps(space_contents), status=200, mimetype='application/json')
 
     if os.path.isfile(space_path):

@@ -6,6 +6,7 @@ Remote save , a simple application on web that simply exists currently on develo
 
 ### Todo
 
+- [x] Returns space data from latest modified to oldest modified
 - [ ] Add Download support for folder what shall download all its contents
 - [x] Copy functionality added
 - [x] add some sort of client side validator when empty text fields are subjected to submission 
@@ -38,8 +39,8 @@ Initial Commit: Jan 1 2025
  ┃ ┣ 📂`<space1>`
  ┃ ┃ ┣ 📜`<space1 password>`
 ```
-## Mar 24
-- Copy Functionality
+## July 22 
+- Sorted content returning
 
 ### To run locally (vanilla)
 - just clone and run it .... that's it
